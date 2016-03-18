@@ -13,7 +13,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int SCALE = 2;
 	public static final Dimension dimension = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	public final String TITLE = "2D Platformer";
-
+	
 	private boolean running = false;
 	private Thread thread;
 	
@@ -38,9 +38,40 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
+		
+		long initialNanoTime = System.nanoTime();
+		double ticksPerSecond = 1000000000 / 60;
+		double delta = 0;
+		int updates = 0;;
+		int frames = 0;
+		long milli = System.currentTimeMillis();
 		while(running){
+			long now = System.nanoTime();
+			delta += (now - initialNanoTime) / ticksPerSecond;
+			initialNanoTime = now;
+			if(delta >= 1){
+				tick();
+				updates++;
+				delta--;
+			}
+			render();
+			frames++;
 			
+			if(System.currentTimeMillis() - milli > 1000){
+				milli += 1000;
+				System.out.println(updates + " ticks, " + frames + " fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
+		
+	}
+	
+	private void tick(){
+		
+	}
+	
+	private void render(){
 		
 	}
 
@@ -57,7 +88,6 @@ public class Game extends Canvas implements Runnable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		
 		game.start();
 	}
