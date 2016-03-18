@@ -8,6 +8,10 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import scib.game.framework.Handler;
+import scib.game.framework.ObjectId;
+import scib.game.game.objects.Player;
+
 /**
  * 
  * @author Andrew Sciberras
@@ -15,14 +19,25 @@ import javax.swing.JFrame;
  */
 public class Game extends Canvas implements Runnable{
 
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = WIDTH / 12 * 9;
-	public static final int SCALE = 2;
-	public static final Dimension dimension = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	public static final int WIDTH = 512;
+	public static final int HEIGHT = 512;
+	//public static final int SCALE = 2;
+	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 	public final String TITLE = "2D Platformer";
 	
 	private boolean running = false;
 	private Thread thread;
+	
+	Handler handler;
+	
+	private void init(){
+		handler = new Handler();
+		
+		handler.addObject(new Player(100, 100, ObjectId.Player));
+		//handler.addObject(new Block(100, 100, ObjectId.Block));
+
+		handler.createLevel();
+	}
 	
 	/**
 	 * 
@@ -58,6 +73,8 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public void run() {
 		
+		init();
+		
 		long initialNanoTime = System.nanoTime();
 		double ticksPerSecond = 1000000000 / 60;
 		double delta = 0;
@@ -91,7 +108,7 @@ public class Game extends Canvas implements Runnable{
 	 * runs every tick
 	 */
 	private void tick(){
-		
+		handler.tick();
 	}
 	
 	/**
@@ -109,6 +126,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		handler.render(g);
 		
 		g.setColor(Color.RED);
 		g.drawString("Hello World", 50, 50);
