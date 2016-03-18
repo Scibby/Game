@@ -8,9 +8,13 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+/**
+ * 
+ * @author Andrew Sciberras
+ *
+ */
 public class Game extends Canvas implements Runnable{
 
-	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = WIDTH / 12 * 9;
 	public static final int SCALE = 2;
@@ -20,6 +24,10 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Thread thread;
 	
+	/**
+	 * 
+	 * starts the program
+	 */
 	private synchronized void start(){
 		if(running) return;
 		
@@ -28,6 +36,10 @@ public class Game extends Canvas implements Runnable{
 		thread.start();
 	}
 	
+	/**
+	 * 
+	 * stops the program
+	 */
 	private synchronized void stop(){
 		if(!running) return;
 		
@@ -40,6 +52,10 @@ public class Game extends Canvas implements Runnable{
 		System.exit(1);
 	}
 	
+	/**
+	 * 
+	 * runs when program starts
+	 */
 	public void run() {
 		
 		long initialNanoTime = System.nanoTime();
@@ -70,10 +86,18 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/**
+	 * 
+	 * runs every tick
+	 */
 	private void tick(){
 		
 	}
 	
+	/**
+	 * 
+	 * renders on screen
+	 */
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
@@ -93,6 +117,10 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 
+	/**
+	 * 
+	 * main method
+	 */
 	public static void main(String[] args) {
 		Game game = new Game();
 
