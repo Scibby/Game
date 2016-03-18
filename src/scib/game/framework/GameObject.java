@@ -1,5 +1,6 @@
 package scib.game.framework;
 
+import java.awt.Graphics;
 import java.util.LinkedList;
 
 public abstract class GameObject {
@@ -15,7 +16,7 @@ public abstract class GameObject {
 	}
 	
 	public abstract void tick(LinkedList<GameObject> object);
-	public abstract void render();
+	public abstract void render(Graphics g);
 	
 	public abstract float getX();
 	public abstract float getY();

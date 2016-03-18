@@ -1,5 +1,6 @@
 package scib.game.game.objects;
 
+import java.awt.Graphics;
 import java.util.LinkedList;
 
 import scib.game.framework.GameObject;
@@ -15,8 +16,8 @@ public class Player extends GameObject {
 
 	}
 
-	public void render() {
-
+	public void render(Graphics g) {
+		
 	}
 
 	public float getX() {
