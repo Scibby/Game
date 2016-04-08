@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
 import scib.game.framework.Handler;
+import scib.game.framework.ImageLoader;
 import scib.game.framework.KeyInput;
 import scib.game.framework.ObjectId;
 import scib.game.game.objects.Block;
@@ -26,42 +28,48 @@ public class Game extends Canvas implements Runnable{
 	//public static final int SCALE = 2;
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 	public final String TITLE = "2D Platformer";
-	
+
 	private boolean running = false;
 	private Thread thread;
-	
+
 	Handler handler;
-	
+
+
 	private void init(){
+
 		handler = new Handler();
-		
+
 		handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
 		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
-
-		handler.createLevel(handler);
+		handler.addObject(new Block(132, 268, 32, 32, ObjectId.Block, handler));
 		
+		
+		handler.createLevel(handler);
+
+
 		this.addKeyListener(new KeyInput(handler));
 	}
-	
+
+
 	/**
 	 * 
 	 * starts the program
 	 */
 	private synchronized void start(){
 		if(running) return;
-		
+
 		running = true;
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	/**
 	 * 
 	 * stops the program
 	 */
 	private synchronized void stop(){
 		if(!running) return;
-		
+
 		running = false;
 		try {
 			thread.join();
@@ -70,15 +78,15 @@ public class Game extends Canvas implements Runnable{
 		}
 		System.exit(1);
 	}
-	
+
 	/**
 	 * 
 	 * runs when program starts
 	 */
 	public void run() {
-		
+
 		init();
-		
+
 		long initialNanoTime = System.nanoTime();
 		double ticksPerSecond = 1000000000 / 60;
 		double delta = 0;
@@ -96,7 +104,7 @@ public class Game extends Canvas implements Runnable{
 			}
 			render();
 			frames++;
-			
+
 			if(System.currentTimeMillis() - milli > 1000){
 				milli += 1000;
 				System.out.println(updates + " ticks, " + frames + " fps");
@@ -104,9 +112,9 @@ public class Game extends Canvas implements Runnable{
 				frames = 0;
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * runs every tick
@@ -114,7 +122,7 @@ public class Game extends Canvas implements Runnable{
 	private void tick(){
 		handler.tick();
 	}
-	
+
 	/**
 	 * 
 	 * renders on screen
@@ -125,17 +133,17 @@ public class Game extends Canvas implements Runnable{
 			this.createBufferStrategy(3);
 			return;
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
-		
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+
 		handler.render(g);
-		
+
 		g.setColor(Color.RED);
 		g.drawString("Hello World", 50, 50);
-		
+
 		g.dispose();
 		bs.show();
 	}
@@ -158,7 +166,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		game.start();
 	}
 }

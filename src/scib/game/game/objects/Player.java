@@ -15,7 +15,7 @@ public class Player extends GameObject {
 	//BufferedImage image;
 
 	
-	private final float GRAVITY = 0.5f;
+	private final float GRAVITY = 1.0f;
 	private final float MAX_SPEED = 3;
 
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
@@ -37,8 +37,6 @@ public class Player extends GameObject {
 
 		collision();
 	}
-
-
 
 	public void collision(){
 		for(int i = 0; i < handler.objectList.size(); i++){
@@ -68,7 +66,5 @@ public class Player extends GameObject {
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, (int) width, (int) height);
 	}
-
-
 
 }
