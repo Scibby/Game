@@ -10,6 +10,7 @@ public abstract class GameObject {
 
 	protected float x, y;
 	protected ObjectId id;
+	protected Handler handler;
 	protected float velX, velY;
 	protected boolean falling = true;
 	protected boolean jumping = false;
@@ -30,10 +31,11 @@ public abstract class GameObject {
 		this.jumping = jumping;
 	}
 
-	public GameObject(float x, float y, ObjectId id){
+	public GameObject(float x, float y, ObjectId id, Handler handler){
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.handler = handler;
 	}
 	
 	public abstract void tick(LinkedList<GameObject> object);
