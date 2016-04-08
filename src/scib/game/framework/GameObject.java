@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public abstract class GameObject {
 
 	protected float x, y;
+	protected float width, height;
 	protected ObjectId id;
 	protected Handler handler;
 	protected float velX, velY;
@@ -31,9 +32,11 @@ public abstract class GameObject {
 		this.jumping = jumping;
 	}
 
-	public GameObject(float x, float y, ObjectId id, Handler handler){
+	public GameObject(float x, float y, float width, float height, ObjectId id, Handler handler){
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.id = id;
 		this.handler = handler;
 	}
@@ -49,11 +52,24 @@ public abstract class GameObject {
 	public float getY(){
 		return y;
 	}
+	public float getWidth(){
+		return width;
+	}
+	public float getHeight(){
+		return height;
+	}
+	
 	public void setX(float x){
 		this.x = x;
 	}
 	public void setY(float y){
 		this.y = y;
+	}
+	public void setWidth(float width){
+		this.width = width;
+	}
+	public void setHeight(float height){
+		this.height = height;
 	}
 	
 	public float getVelX(){

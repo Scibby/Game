@@ -14,8 +14,8 @@ public class Block extends GameObject {
 	
 	ImageLoader loader = new ImageLoader();
 	
-	public Block(float x, float y, ObjectId id, Handler handler) {
-		super(x, y, id, handler);
+	public Block(float x, float y, float width, float height, ObjectId id, Handler handler) {
+		super(x, y, width, height, id, handler);
 	}
 
 	public void tick(LinkedList<GameObject> object){
@@ -24,12 +24,12 @@ public class Block extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
-		g.drawRect((int) x, (int) y, 32, 32);
+		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
 
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, 32, 32);
+		return new Rectangle((int) x, (int) y, (int) width, (int) height);
 	}
 
 	

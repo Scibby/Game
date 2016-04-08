@@ -10,54 +10,65 @@ import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
 
 public class Player extends GameObject {
-	
+
 	//ImageLoader loader = new ImageLoader();
 	//BufferedImage image;
+
 	
-	private final float WIDTH = 32;
-	private final float HEIGHT = 64;
 	private final float GRAVITY = 0.5f;
-	private final float MAX_SPEED = 10;
-	
-	public Player(float x, float y, ObjectId id, Handler handler) {
-		super(x, y, id, handler);
+	private final float MAX_SPEED = 3;
+
+	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
+		super(x, y, width, height, id, handler);
 	}
 
 	public void tick(LinkedList<GameObject> object){
 		//image = loader.loadImage("/res/Player.png");
 		x += velX;
 		y += velY;
-		
+
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
-		
-		
+
+
 		if(falling || jumping){
 			velY += GRAVITY;
-			
-			Collision();
+		}
+
+		collision();
+	}
+
+
+
+	public void collision(){
+		for(int i = 0; i < handler.objectList.size(); i++){
+
+			GameObject tempObject = handler.objectList.get(i);
+
+			if(tempObject.getId() == ObjectId.Block){
+				if(getBounds().intersects(tempObject.getBounds())){
+					velY = 0;
+					falling = false;
+					jumping = false;
+
+					setY(tempObject.getY() - height);
+				}else if(!getBounds().intersects(tempObject.getBounds())){
+					falling = true;
+				}
+				
+			}
 		}
 	}
 
-	
-	
-	public void Collision(){
-		if(getBounds().intersects(handler.objectList.get(1).getBounds())){
-			velY = 0;
-			falling = false;
-			jumping = false;
-		}
-	}
-	
 	public void render(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect((int) x, (int) y, (int) WIDTH, (int) HEIGHT);
+		g.fillRect((int) x, (int) y, (int) width, (int) height);
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, (int) WIDTH, (int) HEIGHT);
+		return new Rectangle((int) x, (int) y, (int) width, (int) height);
 	}
 
-	
+
 
 }

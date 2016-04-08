@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import scib.game.framework.Handler;
+import scib.game.framework.KeyInput;
 import scib.game.framework.ObjectId;
 import scib.game.game.objects.Block;
 import scib.game.game.objects.Player;
@@ -34,10 +35,12 @@ public class Game extends Canvas implements Runnable{
 	private void init(){
 		handler = new Handler();
 		
-		handler.addObject(new Player(100, 100, ObjectId.Player, handler));
-		//handler.addObject(new Block(100, 100, ObjectId.Block, handler));
+		handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
+		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
 
 		handler.createLevel(handler);
+		
+		this.addKeyListener(new KeyInput(handler));
 	}
 	
 	/**
