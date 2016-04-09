@@ -15,6 +15,7 @@ import scib.game.framework.ImageLoader;
 import scib.game.framework.KeyInput;
 import scib.game.framework.ObjectId;
 import scib.game.game.objects.Block;
+import scib.game.game.objects.Finish;
 import scib.game.game.objects.Player;
 
 /**
@@ -185,6 +186,10 @@ public class Game extends Canvas implements Runnable{
 				
 				if(c.getRGB() == Color.RED.getRGB()){
 					handler.addObject(new Player(j * 32, i * 32, 32, 64, ObjectId.Player, handler));
+				}
+				
+				if(c.getRGB() == Color.BLUE.getRGB()){
+					handler.addObject(new Finish(j * 32, i * 32, 64, 128, ObjectId.Finish, handler));
 				}
 			}
 		}
