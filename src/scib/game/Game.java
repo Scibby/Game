@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable{
 
 	private boolean running = false;
 	private Thread thread;
+	private int fps, ticks;
 
 	Handler handler;
 	BufferedImage image;
@@ -117,7 +118,8 @@ public class Game extends Canvas implements Runnable{
 
 			if(System.currentTimeMillis() - milli > 1000){
 				milli += 1000;
-				System.out.println(updates + " ticks, " + frames + " fps");
+				ticks = updates;
+				fps = frames;
 				updates = 0;
 				frames = 0;
 			}
@@ -164,8 +166,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g2d.translate(-cam.getX(), -cam.getY());
 		
-		g.setColor(Color.RED);
-		g.drawString("Hello World", 50, 50);
+		g.setColor(Color.WHITE);
+		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);
 
 		g.dispose();
 		bs.show();
