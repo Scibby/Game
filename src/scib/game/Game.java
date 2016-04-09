@@ -164,6 +164,10 @@ public class Game extends Canvas implements Runnable{
 				if(c.getRGB() == Color.WHITE.getRGB()){
 					handler.addObject(new Block(j * 32, i * 32, 32, 32, ObjectId.Block, handler));
 				}
+				
+				if(c.getRGB() == Color.RED.getRGB()){
+					handler.addObject(new Player(j * 32, i * 32, 32, 64, ObjectId.Player, handler));
+				}
 			}
 		}
 		
