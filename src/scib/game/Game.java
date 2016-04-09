@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -34,6 +35,7 @@ public class Game extends Canvas implements Runnable{
 
 	Handler handler;
 	BufferedImage image;
+	Camera cam;
 
 	private void init(){
 
@@ -45,6 +47,8 @@ public class Game extends Canvas implements Runnable{
 		*/
 		
 		//handler.createLevel(handler);
+		
+		cam = new Camera(0, 0);
 		
 		ImageLoader loader = new ImageLoader();
 		
@@ -127,6 +131,13 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private void tick(){
 		handler.tick();
+		
+		for(int i = 0; i < handler.objectList.size(); i++) {
+			if(handler.objectList.get(i).getId() == ObjectId.Player){
+				cam.tick(handler.objectList.get(i));
+			}
+		}
+		
 	}
 
 	/**
@@ -145,8 +156,14 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
+		Graphics2D g2d = (Graphics2D) g;
+		
+		g2d.translate(cam.getX(), cam.getY());
+		
 		handler.render(g);
-
+		
+		g2d.translate(-cam.getX(), -cam.getY());
+		
 		g.setColor(Color.RED);
 		g.drawString("Hello World", 50, 50);
 
@@ -169,8 +186,6 @@ public class Game extends Canvas implements Runnable{
 				}
 			}
 		}
-		
-		
 	}
 	
 	
@@ -186,7 +201,7 @@ public class Game extends Canvas implements Runnable{
 		game.setPreferredSize(dimension);
 		game.setMaximumSize(dimension);
 		game.setMinimumSize(dimension);
-
+		
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
 		frame.pack();
@@ -194,7 +209,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
+		
 		game.start();
 	}
 }
