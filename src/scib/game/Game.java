@@ -33,18 +33,25 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 
 	Handler handler;
-
+	BufferedImage image;
 
 	private void init(){
 
 		handler = new Handler();
 
-		handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
+		/*handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
 		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
 		handler.addObject(new Block(132, 268, 32, 32, ObjectId.Block, handler));
+		*/
 		
 		
-		handler.createLevel(handler);
+		//handler.createLevel(handler);
+		
+		ImageLoader loader = new ImageLoader();
+		
+		image = loader.loadImage("/Level.png");
+		
+		loadLevel(image);
 
 
 		this.addKeyListener(new KeyInput(handler));
@@ -147,6 +154,24 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
+	
+	public void loadLevel(BufferedImage image){
+		
+		for(int i = 0; i < image.getHeight(); i++){
+			for(int j = 0; j < image.getWidth(); j++){
+				Color c = new Color(image.getRGB(j, i));
+				
+				if(c.getRGB() == Color.WHITE.getRGB()){
+					handler.addObject(new Block(j * 32, i * 32, 32, 32, ObjectId.Block, handler));
+				}
+			}
+		}
+		
+		
+	}
+	
+	
+	
 
 	/**
 	 * 
@@ -163,7 +188,7 @@ public class Game extends Canvas implements Runnable{
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
