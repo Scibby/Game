@@ -19,8 +19,8 @@ public class KeyInput extends KeyAdapter{
 			tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D && key != KeyEvent.VK_A) tempObject.setVelX(5);
-				if(key == KeyEvent.VK_A && key != KeyEvent.VK_D) tempObject.setVelX(-5);
+				if(key == KeyEvent.VK_D) tempObject.setVelX(5);
+				if(key == KeyEvent.VK_A) tempObject.setVelX(-5);
 				if(key == KeyEvent.VK_W && !tempObject.isJumping()){
 					tempObject.setJumping(true);
 					tempObject.setVelY(-10);
@@ -33,7 +33,6 @@ public class KeyInput extends KeyAdapter{
 		}
 	}
 
-
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 
@@ -41,8 +40,8 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D && key != KeyEvent.VK_A) tempObject.setVelX(0);
-				if(key == KeyEvent.VK_A && key != KeyEvent.VK_D) tempObject.setVelX(0);
+				if(key == KeyEvent.VK_D && tempObject.getVelX() != -5) tempObject.setVelX(0);
+				if(key == KeyEvent.VK_A && tempObject.getVelX() != 5) tempObject.setVelX(0);
 				if(key == KeyEvent.VK_W){
 					tempObject.setVelY(0);
 				}

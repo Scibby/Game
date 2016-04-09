@@ -16,7 +16,7 @@ public class Player extends GameObject {
 
 	
 	private final float GRAVITY = 1.0f;
-	private final float MAX_SPEED = 3;
+	private final float MAX_SPEED = 10;
 
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
 		super(x, y, width, height, id, handler);

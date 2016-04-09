@@ -23,9 +23,9 @@ import scib.game.game.objects.Player;
  */
 public class Game extends Canvas implements Runnable{
 
-	public static final int WIDTH = 512;
-	public static final int HEIGHT = 512;
-	//public static final int SCALE = 2;
+	public static final int WIDTH = 1024;
+	public static final int HEIGHT = 1024;
+	public static final int SCALE = 2;
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 	public final String TITLE = "2D Platformer";
 
@@ -43,7 +43,6 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
 		handler.addObject(new Block(132, 268, 32, 32, ObjectId.Block, handler));
 		*/
-		
 		
 		//handler.createLevel(handler);
 		
