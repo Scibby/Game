@@ -34,9 +34,9 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
-
+	
 	Handler handler;
-	BufferedImage image;
+	public static BufferedImage image;
 	Camera cam;
 
 	private void init(){

@@ -40,7 +40,6 @@ public class Finish extends GameObject{
 		g2d.fillRect((int) ((int) x + width) - 5, (int) (y + (height / 4)), 5, (int) (height - (height / 4)));
 		
 		
-		
 		/*g2d.setColor(Color.RED);
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsBottom());

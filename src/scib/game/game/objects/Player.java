@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import scib.game.Game;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
@@ -27,6 +28,11 @@ public class Player extends GameObject {
 		//image = loader.loadImage("/res/Player.png");
 		x += velX;
 		y += velY;
+		
+		if((y + height) > Game.image.getHeight() * 32 + (height * 2)){
+			System.exit(1);
+		}
+		
 
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
