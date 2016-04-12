@@ -19,26 +19,41 @@ import scib.game.game.objects.Finish;
 import scib.game.game.objects.Player;
 
 /**
- * 
  * @author Andrew Sciberras
- *
  */
 public class Game extends Canvas implements Runnable{
 
-	public static final int WIDTH = 1024;
-	public static final int HEIGHT = 1024;
-	public static final int SCALE = 2;
+	/**
+	 * width of window
+	 */
+	public static final int WIDTH = 1600;
+
+	/**
+	 * height of window
+	 */
+	public static final int HEIGHT = 960;
+
+	/**
+	 * dimentions of window
+	 */
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
-	public final String TITLE = "2D Platformer";
+
+	/**
+	 * title of window
+	 */
+	public final String TITLE = "Scibby Platformer";
 
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
-	
+
 	Handler handler;
-	public static BufferedImage image;
+	public static BufferedImage level1;
 	Camera cam;
 
+	/**
+	 * runs the first time as soon as the game opens
+	 */
 	private void init(){
 
 		handler = new Handler();
@@ -46,26 +61,25 @@ public class Game extends Canvas implements Runnable{
 		/*handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
 		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
 		handler.addObject(new Block(132, 268, 32, 32, ObjectId.Block, handler));
-		*/
-		
-		//handler.createLevel(handler);
-		
-		cam = new Camera(0, 0);
-		
-		ImageLoader loader = new ImageLoader();
-		
-		image = loader.loadImage("/Level.png");
-		
-		loadLevel(image);
+		 */
 
+		//handler.createLevel(handler);
+
+		cam = new Camera(0, 0);
+
+		ImageLoader loader = new ImageLoader();
+
+		level1 = loader.loadImage("/Level.png");
+
+		loadLevel(level1);
 
 		this.addKeyListener(new KeyInput(handler));
+
+		//blockImage = loader.loadImage("/grass.png");
 	}
 
-
 	/**
-	 * 
-	 * starts the program
+	 * starts the game loop
 	 */
 	private synchronized void start(){
 		if(running) return;
@@ -76,7 +90,6 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * 
 	 * stops the program
 	 */
 	private synchronized void stop(){
@@ -92,8 +105,8 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * 
-	 * runs when program starts
+	 * runs when game starts
+	 * forces the game to run at 60 cycles per second
 	 */
 	public void run() {
 
@@ -125,26 +138,23 @@ public class Game extends Canvas implements Runnable{
 				frames = 0;
 			}
 		}
-
 	}
 
 	/**
-	 * 
-	 * runs every tick
+	 * runs 60 times every second
 	 */
 	private void tick(){
 		handler.tick();
-		
+
 		for(int i = 0; i < handler.objectList.size(); i++) {
 			if(handler.objectList.get(i).getId() == ObjectId.Player){
 				cam.tick(handler.objectList.get(i));
 			}
 		}
-		
+
 	}
 
 	/**
-	 * 
 	 * renders on screen
 	 */
 	private void render(){
@@ -160,47 +170,59 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		Graphics2D g2d = (Graphics2D) g;
-		
+
+		/*for(int i = 0; i < handler.objectList.size(); i++){
+			GameObject tempObject = handler.objectList.get(i);
+			if(tempObject.getId() == ObjectId.Player){
+				if(tempObject.getX() < 10 * 32){
+					g2d.translate(-cam.getX(), -cam.getY());
+				}else{
+					//g2d.translate(cam.getX(), cam.getY());
+				}
+			}
+		}*/
+
 		g2d.translate(cam.getX(), cam.getY());
-		
+
 		handler.render(g);
-		
+
 		g2d.translate(-cam.getX(), -cam.getY());
-		
+
 		g.setColor(Color.WHITE);
 		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);
 
 		g.dispose();
 		bs.show();
 	}
-	
-	public void loadLevel(BufferedImage image){
-		
-		for(int i = 0; i < image.getHeight(); i++){
-			for(int j = 0; j < image.getWidth(); j++){
-				Color c = new Color(image.getRGB(j, i));
-				
+
+	/**
+	 * Given an image, this method loads a level depending on certain colours in the .png file
+	 * 
+	 * @param level the image of the level which is being loaded
+	 */
+	public void loadLevel(BufferedImage level){
+		for(int i = 0; i < level.getHeight(); i++){
+			for(int j = 0; j < level.getWidth(); j++){
+				Color c = new Color(level.getRGB(j, i));
+
 				if(c.getRGB() == Color.WHITE.getRGB()){
 					handler.addObject(new Block(j * 32, i * 32, 32, 32, ObjectId.Block, handler));
 				}
-				
+
 				if(c.getRGB() == Color.RED.getRGB()){
 					handler.addObject(new Player(j * 32, i * 32, 32, 64, ObjectId.Player, handler));
 				}
-				
+
 				if(c.getRGB() == Color.BLUE.getRGB()){
 					handler.addObject(new Finish(j * 32, i * 32, 64, 128, ObjectId.Finish, handler));
 				}
 			}
 		}
 	}
-	
-	
-	
 
 	/**
 	 * 
-	 * main method
+	 * main method, creates the frame and starts the thread
 	 */
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -208,15 +230,15 @@ public class Game extends Canvas implements Runnable{
 		game.setPreferredSize(dimension);
 		game.setMaximumSize(dimension);
 		game.setMinimumSize(dimension);
-		
+
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		game.start();
 	}
 }

@@ -11,7 +11,7 @@ public class Camera {
 	
 	public void tick(GameObject player){
 		setX(x -= player.getVelX());
-		x = (float) (-player.getX() + (Game.WIDTH / 2.5));
+		x = (float) (-player.getX() + (Game.WIDTH / 2));
 		y = -player.getY() + (Game.HEIGHT / 2);
 	}
 	

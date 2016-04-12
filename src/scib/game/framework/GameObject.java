@@ -6,6 +6,11 @@ import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.LinkedList;
 
+/**
+ * 
+ * @author Scibby
+ *
+ */
 public abstract class GameObject {
 
 	protected float x, y;
@@ -13,25 +18,17 @@ public abstract class GameObject {
 	protected ObjectId id;
 	protected Handler handler;
 	protected float velX, velY;
-	protected boolean falling = true;
+	protected boolean falling = false;
 	protected boolean jumping = false;
 	
-	public boolean isFalling() {
-		return falling;
-	}
-
-	public void setFalling(boolean falling) {
-		this.falling = falling;
-	}
-
-	public boolean isJumping() {
-		return jumping;
-	}
-
-	public void setJumping(boolean jumping) {
-		this.jumping = jumping;
-	}
-
+	/**
+	 * @param x x co-ordinate to spawn the object
+	 * @param y y co-ordinate to spawn the object
+	 * @param width width of the object
+	 * @param height height of the object
+	 * @param id id of the object
+	 * @param handler handler in order to deal with other objects
+	 */
 	public GameObject(float x, float y, float width, float height, ObjectId id, Handler handler){
 		this.x = x;
 		this.y = y;
@@ -40,57 +37,163 @@ public abstract class GameObject {
 		this.id = id;
 		this.handler = handler;
 	}
-	
+
+	/**
+	 * Runs 60 times a second. Contains the bulk of the code
+	 * 
+	 * @param object list of all the objects
+	 */
 	public abstract void tick(LinkedList<GameObject> object);
+	
+	/**
+	 * Renders the graphics on the screen
+	 * 
+	 * @param g Graphics object
+	 */
 	public abstract void render(Graphics g);
+	
+	/**
+	 * @return the rectangle of the whole object
+	 */
 	public abstract Rectangle getBounds();
+	
+	/**
+	 * @return the top part of the object, used for collision
+	 */
 	public abstract Rectangle getBoundsTop();
+	
+	/**
+	 * @return the bottom part of the object, used for collision
+	 */
 	public abstract Rectangle getBoundsBottom();
+	
+	/**
+	 * @return the left part of the object, used for collision
+	 */
 	public abstract Rectangle getBoundsLeft();
+	
+	/**
+	 * @return the right part of the object, used for collision
+	 */
 	public abstract Rectangle getBoundsRight();
-	
-	
+
+	/**
+	 * @return x value of the object
+	 */
 	public float getX(){
 		return x;
 	}
+
+	/**
+	 * @return y value of the object
+	 */
 	public float getY(){
 		return y;
 	}
+
+	/**
+	 * @return width of the object
+	 */
 	public float getWidth(){
 		return width;
 	}
+
+	/**
+	 * @return height of the object
+	 */
 	public float getHeight(){
 		return height;
 	}
-	
-	public void setX(float x){
-		this.x = x;
-	}
-	public void setY(float y){
-		this.y = y;
-	}
-	public void setWidth(float width){
-		this.width = width;
-	}
-	public void setHeight(float height){
-		this.height = height;
-	}
-	
+
+	/**
+	 * @return velocity on the x-axis
+	 */
 	public float getVelX(){
 		return velX;
 	}
+
+	/**
+	 * @return velocity on the y-axis
+	 */
 	public float getVelY(){
 		return velY;
 	}
+	
+	/**
+	 * @return whether the object is falling or not
+	 */
+	public boolean isFalling() {
+		return falling;
+	}
+
+	/**
+	 * @return whether the object is jumping or not
+	 */
+	public boolean isJumping() {
+		return jumping;
+	}
+	
+	/**
+	 * @param x set x value of the object
+	 */
+	public void setX(float x){
+		this.x = x;
+	}
+
+	/**
+	 * @param y set the y value of the object
+	 */
+	public void setY(float y){
+		this.y = y;
+	}
+
+	/**
+	 * @param width set width value of the object
+	 */
+	public void setWidth(float width){
+		this.width = width;
+	}
+
+	/**
+	 * @param height set height value of the object
+	 */
+	public void setHeight(float height){
+		this.height = height;
+	}
+
+	/**
+	 * @param velX sets the velocity on the x-axis
+	 */
 	public void setVelX(float velX){
 		this.velX = velX;
 	}
+
+	/**
+	 * @param velY sets the velocity on the y-axis
+	 */
 	public void setVelY(float velY){
 		this.velY = velY;
 	}
 	
+	/**
+	 * @param falling sets whether the object is falling or not
+	 */
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
+	
+	/**
+	 * @param jumping sets whether the object is jumping or not
+	 */
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+
+	/**
+	 * @return id of the object
+	 */
 	public ObjectId getId(){
 		return id;
 	}
-	
+
 }

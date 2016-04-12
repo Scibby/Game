@@ -6,22 +6,24 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 
 	Handler handler;
-	GameObject tempObject;
 
 	public KeyInput(Handler handler){
 		this.handler = handler;
 	}
 
+	/**
+	 * Runs when a key is pressed
+	 */
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 
 		for(int i = 0; i < handler.objectList.size(); i++){
-			tempObject = handler.objectList.get(i);
+			GameObject tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D) tempObject.setVelX(5);
-				if(key == KeyEvent.VK_A) tempObject.setVelX(-5);
-				if(key == KeyEvent.VK_W && !tempObject.isJumping()){
+				if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) tempObject.setVelX(5); //Moves the player right
+				if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) tempObject.setVelX(-5); //Moves the player left
+				if((key == KeyEvent.VK_W  || key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) && !tempObject.isJumping() && tempObject.isFalling()){ //Lets the player jump
 					tempObject.setJumping(true);
 					tempObject.setVelY(-17);
 				}
@@ -33,6 +35,9 @@ public class KeyInput extends KeyAdapter{
 		}
 	}
 
+	/**
+	 * Runs when a key is released
+	 */
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 
@@ -40,10 +45,10 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D && tempObject.getVelX() != -5) tempObject.setVelX(0);
-				if(key == KeyEvent.VK_A && tempObject.getVelX() != 5) tempObject.setVelX(0);
+				if((key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) && tempObject.getVelX() != -5) tempObject.setVelX(0);
+				if((key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) && tempObject.getVelX() != 5) tempObject.setVelX(0);
 				if(key == KeyEvent.VK_W){
-					tempObject.setVelY(0);
+					//tempObject.setVelY(0);
 				}
 			}
 		}
