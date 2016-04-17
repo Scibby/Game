@@ -9,13 +9,17 @@ import scib.game.game.objects.Block;
 
 public class Handler {
 
+	/**
+	 * List of all of the objects
+	 */
 	public LinkedList<GameObject> objectList = new LinkedList<GameObject>();
 
 	private GameObject object;
 
 	/**
-	 * runs 60 times every second
-	 * ticks the other objects
+	 * Runs 60 times every second
+	 * 
+	 * Ticks the other objects
 	 */
 	public void tick(){
 		for(int i = 0; i < objectList.size(); i++){
@@ -25,8 +29,9 @@ public class Handler {
 	}
 
 	/**
-	 * starts the render method for the other objects
-	 * @param g
+	 * Starts the render method for the other objects
+	 * 
+	 * @param g Graphics object used to render objects onto the screen
 	 */
 	public void render(Graphics g){
 		for(int i = 0; i < objectList.size(); i++){
@@ -36,18 +41,18 @@ public class Handler {
 	}
 
 	/**
-	 * adds an object onto the screen
+	 * Adds an object onto the screen
 	 * 
-	 * @param object
+	 * @param object object to add
 	 */
 	public void addObject(GameObject object){
 		this.objectList.add(object);
 	}
 
 	/**
-	 * removes an object from the screen
+	 * Removes an object from the screen
 	 * 
-	 * @param object
+	 * @param object object to remove
 	 */
 	public void removeObject(GameObject object){
 		this.objectList.remove(object);

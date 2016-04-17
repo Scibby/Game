@@ -14,6 +14,7 @@ import scib.game.framework.Handler;
 import scib.game.framework.ImageLoader;
 import scib.game.framework.KeyInput;
 import scib.game.framework.ObjectId;
+import scib.game.framework.Texture;
 import scib.game.game.objects.Block;
 import scib.game.game.objects.Finish;
 import scib.game.game.objects.Player;
@@ -46,6 +47,8 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
+	
+	public static Texture texture;
 
 	Handler handler;
 	public static BufferedImage level1;
@@ -65,6 +68,8 @@ public class Game extends Canvas implements Runnable{
 
 		//handler.createLevel(handler);
 
+		texture = new Texture();
+		
 		cam = new Camera(0, 0);
 
 		ImageLoader loader = new ImageLoader();
@@ -79,7 +84,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * starts the game loop
+	 * Starts the game loop
 	 */
 	private synchronized void start(){
 		if(running) return;
@@ -90,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * stops the program
+	 * Stops the program
 	 */
 	private synchronized void stop(){
 		if(!running) return;
@@ -166,7 +171,7 @@ public class Game extends Canvas implements Runnable{
 
 		Graphics g = bs.getDrawGraphics();
 
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(44, 175, 219));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		Graphics2D g2d = (Graphics2D) g;
@@ -206,18 +211,26 @@ public class Game extends Canvas implements Runnable{
 				Color c = new Color(level.getRGB(j, i));
 
 				if(c.getRGB() == Color.WHITE.getRGB()){
-					handler.addObject(new Block(j * 32, i * 32, 32, 32, ObjectId.Block, handler));
+					handler.addObject(new Block(j * 48, i * 48, 48, 48, 3, ObjectId.Block, handler));
+				}
+				
+				if(c.getRGB() == new Color(128, 128, 128).getRGB()){
+					handler.addObject(new Block(j * 48, i * 48, 48, 48, 1, ObjectId.Block, handler));
 				}
 
 				if(c.getRGB() == Color.RED.getRGB()){
-					handler.addObject(new Player(j * 32, i * 32, 32, 64, ObjectId.Player, handler));
+					handler.addObject(new Player(j * 48, i * 48, 48, 48, ObjectId.Player, handler));
 				}
 
 				if(c.getRGB() == Color.BLUE.getRGB()){
-					handler.addObject(new Finish(j * 32, i * 32, 64, 128, ObjectId.Finish, handler));
+					handler.addObject(new Finish(j * 48, i * 48, 64, 128, ObjectId.Finish, handler));
 				}
 			}
 		}
+	}
+	
+	public static Texture getTexture(){
+		return texture;
 	}
 
 	/**

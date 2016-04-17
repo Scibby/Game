@@ -21,8 +21,8 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) tempObject.setVelX(5); //Moves the player right
-				if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) tempObject.setVelX(-5); //Moves the player left
+				if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) tempObject.setVelX(7); //Moves the player right
+				if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) tempObject.setVelX(-7); //Moves the player left
 				if((key == KeyEvent.VK_W  || key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) && !tempObject.isJumping() && tempObject.isFalling()){ //Lets the player jump
 					tempObject.setJumping(true);
 					tempObject.setVelY(-17);
@@ -30,6 +30,9 @@ public class KeyInput extends KeyAdapter{
 			}
 		}
 		
+		/**
+		 * Exits the game
+		 */
 		if(key == KeyEvent.VK_ESCAPE){
 			System.exit(0);
 		}

@@ -7,9 +7,11 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import scib.game.Game;
+import scib.game.framework.Animation;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
+import scib.game.framework.Texture;
 
 public class Player extends GameObject {
 
@@ -25,8 +27,26 @@ public class Player extends GameObject {
 	 * Max speed of the player
 	 */
 	private final float MAX_SPEED = 10;
+	
+	private Texture texture;
+	private Animation walkRight;
+	private Animation walkLeft;
+	
+	
+	private enum Direction{
+		Right(),
+		Left();
+	}
+	
+	/**
+	 * Direction the player is facing
+	 */
+	private Direction direction = Direction.Right;
+	
 
 	/**
+	 * Creates a new player
+	 * 
 	 * @param x x co-ordinate to spawn the player
 	 * @param y y co-ordinate to spawn the player
 	 * @param width width of the player
@@ -36,6 +56,9 @@ public class Player extends GameObject {
 	 */
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
 		super(x, y, width, height, id, handler);
+		texture = Game.getTexture();
+		walkRight = new Animation(1, texture.player[3], texture.player[2], texture.player[1]);
+		walkLeft = new Animation(1, texture.player[6], texture.player[7], texture.player[8]);
 	}
 
 	/**
@@ -48,7 +71,7 @@ public class Player extends GameObject {
 		x += velX;
 		y += velY;
 
-		if((y + height) > Game.level1.getHeight() * 32 + (height * 2)){
+		if((y + height) > Game.level1.getHeight() * 48 + (height * 2)){
 			System.exit(1);
 		}
 
@@ -64,6 +87,15 @@ public class Player extends GameObject {
 			falling = false;
 		}
 		
+		if(velX > 0){
+			direction = Direction.Right;
+		}else if(velX < 0){
+			direction = Direction.Left;
+		}
+		
+		walkRight.runAnimation(); //Runs the walkRight animation
+		walkLeft.runAnimation(); //Runs the walkLeft animation
+		
 		collision();
 	}
 
@@ -77,11 +109,17 @@ public class Player extends GameObject {
 
 			if(tempObject.getId() == ObjectId.Block){
 
+				/**
+				 * Top collision
+				 */
 				if(getBoundsTop().intersects(tempObject.getBounds())){
 					setVelY(0);
 					setY(tempObject.getY() + tempObject.getHeight());
 				}
 
+				/**
+				 * Bottom collision
+				 */
 				if(getBoundsBottom().intersects(tempObject.getBoundsTop())){
 					setVelY(0);
 					falling = false;
@@ -92,16 +130,21 @@ public class Player extends GameObject {
 					falling = true;
 				}
 
+				/**
+				 * Right collision
+				 */
 				if(getBoundsRight().intersects(tempObject.getBounds())){
 					//setVelX(0);
 					setX(tempObject.getX() - getWidth());
 				}
 
+				/**
+				 * Left collision
+				 */
 				if(getBoundsLeft().intersects(tempObject.getBounds())){
 					//setVelX(0);
 					setX(tempObject.getX() + getWidth());
 				}
-
 			}
 		}
 	}
@@ -114,8 +157,51 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g.setColor(Color.RED);
-		g.fillRect((int) x, (int) y, (int) width, (int) height);
+		//g.fillRect((int) x, (int) y, (int) width, (int) height);
 
+		if(isJumping()){
+			if(direction == Direction.Right){
+				g.drawImage(texture.player[4], (int) x, (int) y, (int) width, (int) height, null);
+			}else if(direction == Direction.Left){
+				g.drawImage(texture.player[9], (int) x, (int) y, (int) width, (int) height, null);
+			}
+		}else{
+			
+			if(velX > 0){
+				walkRight.drawAnimation(g, (int) x,(int) y, (int) width, (int) height);
+			}else if(velX < 0){
+				walkLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+			}else{
+				if(velX == 0){
+					if(direction == Direction.Right){
+						g.drawImage(texture.player[0], (int) x, (int) y, (int) width, (int) height, null);
+					}else if(direction == Direction.Left){
+						g.drawImage(texture.player[5], (int) x, (int) y, (int) width, (int) height, null);
+					}
+				}
+			}
+			
+		}
+		
+		
+		
+		if(isJumping() && direction == Direction.Right){
+			
+		}else if(isJumping() && direction == Direction.Left){
+			
+		}else if(velX > 0){
+			
+		}else if(velX < 0){
+			
+		}else if(velX == 0 && direction == Direction.Right){
+			
+		}else if(velX == 0 && direction == Direction.Left){
+			
+		}
+		
+		
+		
+		
 		/*g2d.setColor(Color.BLUE);
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsBottom());
@@ -123,7 +209,6 @@ public class Player extends GameObject {
 		g2d.draw(getBoundsRight());*/
 		
 		g.setColor(Color.WHITE);
-		
 	}
 	
 	/**
