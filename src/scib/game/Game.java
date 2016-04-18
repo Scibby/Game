@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import scib.game.framework.Handler;
 import scib.game.framework.ImageLoader;
 import scib.game.framework.KeyInput;
+import scib.game.framework.MouseInput;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
 import scib.game.game.objects.Block;
@@ -53,9 +54,19 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	public static BufferedImage level1;
 	static Camera cam;
+	
+	Menu menu;
+
+	public enum STATES{
+		MENU(),
+		GAME(),
+		PAUSE();
+	}
+
+	public static STATES state = STATES.MENU;
 
 	/**
-	 * runs the first time as soon as the game opens
+	 * Runs the first time as soon as the game opens
 	 */
 	private void init(){
 		handler = new Handler();
@@ -66,10 +77,14 @@ public class Game extends Canvas implements Runnable{
 		ImageLoader loader = new ImageLoader();
 
 		level1 = loader.loadImage("/Level.png");
-
-		loadLevel(level1);
-
+		
 		this.addKeyListener(new KeyInput(handler));
+
+		this.addMouseListener(new MouseInput());
+		
+		menu = new Menu();
+		
+		loadLevel(level1);
 
 	}
 
@@ -139,14 +154,16 @@ public class Game extends Canvas implements Runnable{
 	 * runs 60 times every second
 	 */
 	private void tick(){
-		handler.tick();
 
-		for(int i = 0; i < handler.objectList.size(); i++) {
-			if(handler.objectList.get(i).getId() == ObjectId.Player){
-				cam.tick(handler.objectList.get(i));
+		if(state == STATES.GAME){
+			handler.tick();
+
+			for(int i = 0; i < handler.objectList.size(); i++) {
+				if(handler.objectList.get(i).getId() == ObjectId.Player){
+					cam.tick(handler.objectList.get(i));
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -160,35 +177,34 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		Graphics g = bs.getDrawGraphics();
-
-		g.setColor(new Color(44, 175, 219));
-		g.fillRect(0, 0, getWidth(), getHeight());
-
+		
 		Graphics2D g2d = (Graphics2D) g;
+		
+		if(state == STATES.GAME){
+			
+			g2d.setColor(new Color(44, 175, 219));
+			g2d.fillRect(0, 0, getWidth(), getHeight());
+			
+			if(cam.getX() > 0){
+				handler.render(g);
+			}else{
 
-		/*for(int i = 0; i < handler.objectList.size(); i++){
-			GameObject tempObject = handler.objectList.get(i);
-			if(tempObject.getId() == ObjectId.Player){
-				if(tempObject.getX() < 10 * 32){
-					g2d.translate(-cam.getX(), -cam.getY());
-				}else{
-					//g2d.translate(cam.getX(), cam.getY());
-				}
+				g2d.translate(cam.getX(), cam.getY());
+
+				handler.render(g);
+
+				g2d.translate(-cam.getX(), -cam.getY());
 			}
-		}*/
-
-		if(cam.getX() > 0){
-			handler.render(g);
-		}else{
-
-			g2d.translate(cam.getX(), cam.getY());
-
-			handler.render(g);
-
-			g2d.translate(-cam.getX(), -cam.getY());
+		}else if(state == STATES.MENU){
+			
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			menu.render(g);
 		}
-		g.setColor(Color.WHITE);
-		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);
+		
+		/*g.setColor(Color.WHITE);
+		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);*/
 
 		g.dispose();
 		bs.show();

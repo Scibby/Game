@@ -29,7 +29,6 @@ public class Player extends GameObject {
 	private Animation walkRight;
 	private Animation walkLeft;
 	
-	
 	private enum Direction{
 		Right(),
 		Left();
