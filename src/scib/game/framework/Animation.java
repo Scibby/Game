@@ -14,6 +14,12 @@ public class Animation {
 	private BufferedImage currentImage;
 	private BufferedImage[] images;
 
+	/**
+	 * Initiates the animation
+	 * 
+	 * @param speed speed of the animation
+	 * @param args images to use in the animation
+	 */
 	public Animation(int speed, BufferedImage... args){
 		this.speed = speed;
 		images = new BufferedImage[args.length];
@@ -27,6 +33,9 @@ public class Animation {
 		frames = args.length;
 	}
 
+	/**
+	 * Runs the animation
+	 */
 	public void runAnimation(){
 		index++;
 
@@ -36,6 +45,9 @@ public class Animation {
 		}
 	}
 
+	/**
+	 * Changes the image in the animation
+	 */
 	private void nextFrame(){
 		for(int i = 0; i < frames; i++){
 			if(count == i){
@@ -50,9 +62,17 @@ public class Animation {
 		}
 	}
 
+	/**
+	 * Draws the animation onto the screen
+	 * 
+	 * @param g graphics object to draw the animation
+	 * @param x x co-ordiante to draw the animation
+	 * @param y y co-ordinate to draw the animation
+	 * @param width width of the animation
+	 * @param height height of the animation
+	 */
 	public void drawAnimation(Graphics g, int x, int y, int width, int height){
 		g.drawImage(currentImage, x, y, width, height, null);
-
 	}
 
 }

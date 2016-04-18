@@ -42,34 +42,25 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * title of window
 	 */
-	public final String TITLE = "Scibby Platformer";
+	private final String TITLE = "Scibby Platformer";
 
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
-	
-	public static Texture texture;
 
-	Handler handler;
+	private static Texture texture;
+
+	private Handler handler;
 	public static BufferedImage level1;
-	Camera cam;
+	static Camera cam;
 
 	/**
 	 * runs the first time as soon as the game opens
 	 */
 	private void init(){
-
 		handler = new Handler();
-
-		/*handler.addObject(new Player(100, 100, 32, 64, ObjectId.Player, handler));
-		handler.addObject(new Block(100, 300, 32, 32, ObjectId.Block, handler));
-		handler.addObject(new Block(132, 268, 32, 32, ObjectId.Block, handler));
-		 */
-
-		//handler.createLevel(handler);
-
 		texture = new Texture();
-		
+
 		cam = new Camera(0, 0);
 
 		ImageLoader loader = new ImageLoader();
@@ -80,7 +71,6 @@ public class Game extends Canvas implements Runnable{
 
 		this.addKeyListener(new KeyInput(handler));
 
-		//blockImage = loader.loadImage("/grass.png");
 	}
 
 	/**
@@ -187,12 +177,16 @@ public class Game extends Canvas implements Runnable{
 			}
 		}*/
 
-		g2d.translate(cam.getX(), cam.getY());
+		if(cam.getX() > 0){
+			handler.render(g);
+		}else{
 
-		handler.render(g);
+			g2d.translate(cam.getX(), cam.getY());
 
-		g2d.translate(-cam.getX(), -cam.getY());
+			handler.render(g);
 
+			g2d.translate(-cam.getX(), -cam.getY());
+		}
 		g.setColor(Color.WHITE);
 		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);
 
@@ -213,7 +207,7 @@ public class Game extends Canvas implements Runnable{
 				if(c.getRGB() == Color.WHITE.getRGB()){
 					handler.addObject(new Block(j * 48, i * 48, 48, 48, 3, ObjectId.Block, handler));
 				}
-				
+
 				if(c.getRGB() == new Color(128, 128, 128).getRGB()){
 					handler.addObject(new Block(j * 48, i * 48, 48, 48, 1, ObjectId.Block, handler));
 				}
@@ -228,9 +222,19 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
+
+	/**
+	 * @return the texture object
+	 */
 	public static Texture getTexture(){
 		return texture;
+	}
+
+	/**
+	 * @return the camera object
+	 */
+	public static Camera getCamera(){
+		return cam;
 	}
 
 	/**

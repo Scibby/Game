@@ -11,7 +11,6 @@ public class Texture {
 	public BufferedImage[] block = new BufferedImage[4];
 	public BufferedImage[] player = new BufferedImage[10];
 
-	
 	public Texture(){
 		
 		ImageLoader loader = new ImageLoader();

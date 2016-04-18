@@ -11,6 +11,7 @@ public class ImageLoader {
 	private BufferedImage image;
 	
 	/**
+	 * Loads the image
 	 * 
 	 * @param path path to the image used
 	 * @return the image object
@@ -22,7 +23,5 @@ public class ImageLoader {
 			e.printStackTrace();
 		}
 		return image;
-		
 	}
-	
 }

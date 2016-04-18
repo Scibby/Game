@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import scib.game.Camera;
 import scib.game.Game;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
@@ -16,9 +17,10 @@ import scib.game.framework.Texture;
 
 public class Block extends GameObject {
 
-	ImageLoader loader = new ImageLoader();
+	private ImageLoader loader = new ImageLoader();
 	private int blockId;
-	Texture texture = Game.getTexture();
+	private Texture texture = Game.getTexture();
+	private Camera cam = Game.getCamera();
 
 	/**
 	 * @param x x co-ordinate to spawn the block
@@ -58,6 +60,18 @@ public class Block extends GameObject {
 			}
 		}
 
+		/*if ((this.x > -cam.getX() + Game.WIDTH) || (this.x < -cam.getX() - 32) || (this.y > -cam.getY() + Game.HEIGHT) || (this.y < -cam.getY() - 32)) {
+
+		}else{
+
+			for(int i = 0; i < texture.block.length; i++){
+				if(blockId == i){
+					g.drawImage(texture.block[i], (int) x, (int) y, (int) width, (int) height, null);
+				}
+			}
+		}*/
+
+
 		//g.drawImage(Game.blockImage,(int) x,(int) y, (int) width, (int) height, null);
 
 		/*g2d.setColor(Color.GREEN);
@@ -69,6 +83,7 @@ public class Block extends GameObject {
 
 
 	/**
+	 * The whole block box
 	 * 
 	 * @return the rectangle of the whole object
 	 */
@@ -77,37 +92,39 @@ public class Block extends GameObject {
 	}
 
 	/**
+	 * The top box of the block
 	 * 
 	 * @return the top part of the object, used for collision
 	 */
 	public Rectangle getBoundsTop() {
 		return new Rectangle((int) ((int) x + width / 4), (int) y, (int) width / 2, (int) (height / 2));
 	}
-
+	
 	/**
+	 * The bottom box of the block
 	 * 
 	 * @return the bottom part of the object, used for collision
 	 */
 	public Rectangle getBoundsBottom() {
 		return new Rectangle((int) ((int) x + width / 4), (int) ((int) y + (height / 2)), (int) width / 2, (int) (height / 2));
 	}
-
+	
 	/**
+	 * The Left box of the block
 	 * 
 	 * @return the left part of the object, used for collision
 	 */
 	public Rectangle getBoundsLeft() {
 		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 4, (int) ((int) height - ((height / 16) * 2)));
 	}
-
+	
 	/**
+	 * Right box of the block
 	 * 
 	 * @return the right part of the object, used for collision
 	 */
 	public Rectangle getBoundsRight() {
 		return new Rectangle((int) ((int) x + ((width / 4) * 3)), (int) ((int) y + height / 16), (int) width / 4, (int) ((int) height - (height / 16) * 2));
 	}
-
-
 
 }

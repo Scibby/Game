@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter{
 
-	Handler handler;
+	private Handler handler;
 
 	public KeyInput(Handler handler){
 		this.handler = handler;
@@ -48,8 +48,8 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.objectList.get(i);
 
 			if(tempObject.getId() == ObjectId.Player){
-				if((key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) && tempObject.getVelX() != -5) tempObject.setVelX(0);
-				if((key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) && tempObject.getVelX() != 5) tempObject.setVelX(0);
+				if((key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) && tempObject.getVelX() != -7) tempObject.setVelX(0);
+				if((key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) && tempObject.getVelX() != 7) tempObject.setVelX(0);
 				if(key == KeyEvent.VK_W){
 					//tempObject.setVelY(0);
 				}
