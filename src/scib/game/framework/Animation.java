@@ -26,10 +26,6 @@ public class Animation {
 
 		images = args.clone();
 
-		/*for(int i = 0; i < args.length; i++){
-			images[i] = args[i];
-		}*/
-
 		frames = args.length;
 	}
 
@@ -54,7 +50,7 @@ public class Animation {
 				currentImage = images[i];
 			}
 		}
-		
+
 		count++;
 
 		if(count > frames){

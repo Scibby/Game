@@ -18,7 +18,7 @@ public class Menu {
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
 
-		Font titleFont = new Font("Arial", Font.BOLD, 50);
+		Font titleFont = new Font("Georgia", Font.BOLD, 50);
 		g2d.setFont(titleFont);
 		g2d.setColor(Color.WHITE);
 
@@ -30,7 +30,7 @@ public class Menu {
 		g2d.draw(quitButton);
 
 
-		Font buttonFont = new Font("Arial", Font.BOLD, 30);
+		Font buttonFont = new Font("Georgia", Font.BOLD, 30);
 		fm = g2d.getFontMetrics(buttonFont);
 		g2d.setFont(buttonFont);
 

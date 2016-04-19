@@ -32,13 +32,15 @@ public class KeyInput extends KeyAdapter{
 				}
 			}
 		}
-		
+
 		/**
 		 * Exits the game
 		 */
 		if(key == KeyEvent.VK_ESCAPE){
 			if(Game.state != STATES.PAUSE){
-				Game.state = STATES.PAUSE;
+				if(Game.state == STATES.GAME){
+					Game.state = STATES.PAUSE;
+				}
 			}else{
 				Game.state = STATES.GAME;
 			}

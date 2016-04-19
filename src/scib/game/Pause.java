@@ -17,11 +17,14 @@ public class Pause {
 	
 	public void render(Graphics g){
 		
+		g.setColor(new Color(44, 175, 219));
+		g.fillRect(0, 0, Game.WIDTH, 100);
+		
 		Graphics2D g2d = (Graphics2D) g;
 		
-		Font titleFont = new Font("Arial", Font.BOLD, 50);
+		Font titleFont = new Font("Georgia", Font.BOLD, 50);
 		g2d.setFont(titleFont);
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.ORANGE);
 
 		FontMetrics fm = g2d.getFontMetrics(titleFont);
 
@@ -29,14 +32,13 @@ public class Pause {
 
 		g2d.setColor(Color.RED);
 		
-		g2d.drawString("PAUSED", (Game.WIDTH / 2) - (fm.stringWidth("PAUSED") / 2), 100);
+		g2d.drawString("PAUSED", (Game.WIDTH / 2) - (fm.stringWidth("PAUSED") / 2), 110);
 		
 		g2d.setColor(Color.WHITE);
 		g2d.draw(resumeButton);
 		g2d.draw(quitButton);
 
-
-		Font buttonFont = new Font("Arial", Font.BOLD, 30);
+		Font buttonFont = new Font("Georgia", Font.BOLD, 30);
 		fm = g2d.getFontMetrics(buttonFont);
 		g2d.setFont(buttonFont);
 
@@ -45,6 +47,4 @@ public class Pause {
 		g2d.drawString("Quit", quitButton.x + (quitButton.width / 2) - (fm.stringWidth("Quit") / 2), quitButton.y + (quitButton.height / 2) + 12);
 	
 	}
-	
-	
 }
