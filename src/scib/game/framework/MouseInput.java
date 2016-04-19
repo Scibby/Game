@@ -20,20 +20,21 @@ public class MouseInput implements MouseListener{
 	 * 	Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 75, 150, 150, 50);
 	 * 	Rectangle quitButton = new Rectangle(Game.WIDTH / 2 - 75, 225, 150, 50);
 	 */
-	
+
 	public void mousePressed(java.awt.event.MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		
-		if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
-			if(my > 150 && my < 200){
-				Game.state = STATES.GAME; 
+		if(Game.state == STATES.MENU || Game.state == STATES.PAUSE){
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > 150 && my < 200){
+					Game.state = STATES.GAME; 
+				}
 			}
-		}
-		
-		if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
-			if(my > 225 && my < 275){
-				System.exit(1);
+
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > 225 && my < 275){
+					System.exit(1);
+				}
 			}
 		}
 	}

@@ -3,6 +3,9 @@ package scib.game.framework;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import scib.game.Game;
+import scib.game.Game.STATES;
+
 public class KeyInput extends KeyAdapter{
 
 	private Handler handler;
@@ -34,7 +37,11 @@ public class KeyInput extends KeyAdapter{
 		 * Exits the game
 		 */
 		if(key == KeyEvent.VK_ESCAPE){
-			System.exit(0);
+			if(Game.state != STATES.PAUSE){
+				Game.state = STATES.PAUSE;
+			}else{
+				Game.state = STATES.GAME;
+			}
 		}
 	}
 

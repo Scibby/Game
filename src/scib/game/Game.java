@@ -26,36 +26,37 @@ import scib.game.game.objects.Player;
 public class Game extends Canvas implements Runnable{
 
 	/**
-	 * width of window
+	 * Width of window
 	 */
 	public static final int WIDTH = 1600;
 
 	/**
-	 * height of window
+	 * Height of window
 	 */
 	public static final int HEIGHT = 960;
 
 	/**
-	 * dimentions of window
+	 * Dimentions of window
 	 */
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 
 	/**
-	 * title of window
+	 * Title of window
 	 */
-	private final String TITLE = "Scibby Platformer";
+	public static final String TITLE = "Scibby Platformer";
 
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
 
 	private static Texture texture;
-
+	
 	private Handler handler;
 	public static BufferedImage level1;
 	static Camera cam;
 	
 	Menu menu;
+	Pause pause;
 
 	public enum STATES{
 		MENU(),
@@ -83,6 +84,7 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(new MouseInput());
 		
 		menu = new Menu();
+		pause = new Pause();
 		
 		loadLevel(level1);
 
@@ -115,8 +117,8 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * runs when game starts
-	 * forces the game to run at 60 cycles per second
+	 * Runs when game starts
+	 * Forces the game to run at 60 cycles per second
 	 */
 	public void run() {
 
@@ -151,13 +153,13 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * runs 60 times every second
+	 * Runs 60 times every second
 	 */
 	private void tick(){
 
 		if(state == STATES.GAME){
 			handler.tick();
-
+			
 			for(int i = 0; i < handler.objectList.size(); i++) {
 				if(handler.objectList.get(i).getId() == ObjectId.Player){
 					cam.tick(handler.objectList.get(i));
@@ -167,7 +169,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * renders on screen
+	 * Renders graphics onto screen
 	 */
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
@@ -201,6 +203,8 @@ public class Game extends Canvas implements Runnable{
 			g.fillRect(0, 0, getWidth(), getHeight());
 			
 			menu.render(g);
+		}else if(state == STATES.PAUSE){
+			pause.render(g);
 		}
 		
 		/*g.setColor(Color.WHITE);
