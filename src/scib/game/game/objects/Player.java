@@ -19,12 +19,12 @@ public class Player extends GameObject {
 	/**
 	 * Gravity of the player, how fast he falls to the ground
 	 */
-	private final float GRAVITY = 1.0f;
+	private final float GRAVITY = 1.25f;
 	
 	/**
 	 * Max speed of the player
 	 */
-	private final float MAX_SPEED = 10;
+	private final float MAX_SPEED = 15;
 	
 	private Texture texture;
 	private Animation walkRight;
@@ -53,8 +53,8 @@ public class Player extends GameObject {
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
 		super(x, y, width, height, id, handler);
 		texture = Game.getTexture();
-		walkRight = new Animation(1, texture.player[3], texture.player[2], texture.player[1]);
-		walkLeft = new Animation(1, texture.player[6], texture.player[7], texture.player[8]);
+		walkRight = new Animation(2, texture.player[3], texture.player[2], texture.player[1]);
+		walkLeft = new Animation(2, texture.player[6], texture.player[7], texture.player[8]);
 	}
 
 	/**
@@ -77,9 +77,7 @@ public class Player extends GameObject {
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
 
-		if(falling || jumping){
-			velY += GRAVITY;
-		}
+		if(falling || jumping) velY += GRAVITY;
 		
 		if(velX > 0){
 			direction = Direction.Right;
@@ -106,7 +104,7 @@ public class Player extends GameObject {
 				/**
 				 * Top collision
 				 */
-				if(getBoundsTop().intersects(tempObject.getBounds())){
+				if(getBoundsTop().intersects(tempObject.getBoundsBottom())){
 					setVelY(0);
 					setY(tempObject.getY() + tempObject.getHeight());
 				}
@@ -120,7 +118,7 @@ public class Player extends GameObject {
 					jumping = false;
 
 					setY(tempObject.getY() - getHeight());
-				}else if(!getBoundsBottom().intersects(tempObject.getBounds())){
+				}else if(!getBoundsBottom().intersects(tempObject.getBoundsTop())){
 					falling = true;
 				}
 
@@ -138,6 +136,10 @@ public class Player extends GameObject {
 				if(getBoundsLeft().intersects(tempObject.getBounds())){
 					//setVelX(0);
 					setX(tempObject.getX() + getWidth());
+				}
+			}else if(tempObject.getId() == ObjectId.BasicEnemy){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//Player dies
 				}
 			}
 		}
@@ -183,50 +185,4 @@ public class Player extends GameObject {
 		
 		g.setColor(Color.WHITE);
 	}
-	
-	/**
-	 * The whole player box
-	 * 
-	 * @return the rectangle of the whole object
-	 */
-	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, (int) width, (int) height);
-	}
-
-	/**
-	 * The top box of the player
-	 * 
-	 * @return the top part of the object, used for collision
-	 */
-	public Rectangle getBoundsTop() {
-		return new Rectangle((int) ((int) x + width / 4), (int) y, (int) width / 2, (int) (height / 2));
-	}
-	
-	/**
-	 * The bottom box of the player
-	 * 
-	 * @return the bottom part of the object, used for collision
-	 */
-	public Rectangle getBoundsBottom() {
-		return new Rectangle((int) ((int) x + width / 4), (int) ((int) y + (height / 2)), (int) width / 2, (int) (height / 2));
-	}
-	
-	/**
-	 * The Left box of the player
-	 * 
-	 * @return the left part of the object, used for collision
-	 */
-	public Rectangle getBoundsLeft() {
-		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 4, (int) ((int) height - ((height / 16) * 2)));
-	}
-	
-	/**
-	 * Right box of the player
-	 * 
-	 * @return the right part of the object, used for collision
-	 */
-	public Rectangle getBoundsRight() {
-		return new Rectangle((int) ((int) x + ((width / 4) * 3)), (int) ((int) y + height / 16), (int) width / 4, (int) ((int) height - (height / 16) * 2));
-	}
-
 }

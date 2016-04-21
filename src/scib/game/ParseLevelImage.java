@@ -37,6 +37,11 @@ public class ParseLevelImage {
 					System.out.println("handler.addObject(new Finish(" + (j * 48) + ", " + (i * 48) + ", 144, 576, ObjectId.Finish, handler));");
 
 				}
+				
+				if(c.getRGB() == Color.GREEN.getRGB()){
+					System.out.println("handler.addObject(new BasicEnemy(" + (j * 48) + ", " + (i * 48) + ", 48, 48, ObjectId.BasicEnemy, handler));");
+
+				}
 			}
 		}
 	}

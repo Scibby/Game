@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int HEIGHT = 960;
 
 	/**
-	 * Dimentions of window
+	 * Dimensions of window
 	 */
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 
@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable{
 
 	private Handler handler;
 	static Camera cam;
-	public static int lives;
+	public static int lives = 3;
 
 	Menu menu;
 	Pause pause;
@@ -92,7 +92,6 @@ public class Game extends Canvas implements Runnable{
 		menu = new Menu();
 		pause = new Pause();
 		hud = new HUD();
-
 	}
 
 	/**

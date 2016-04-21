@@ -7,13 +7,16 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import scib.game.Game;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
+import scib.game.framework.Texture;
 
 public class Finish extends GameObject{
 	
-	Polygon p = new Polygon();
+	private boolean up = false;
+	private Texture texture = Game.getTexture();
 
 	/**
 	 * @param x x co-ordinate to spawn the finish
@@ -28,31 +31,37 @@ public class Finish extends GameObject{
 	}
 
 	/**
-	 * runs 60 times a second
+	 * Runs 60 times a second
 	 * 
-	 * this is where the bulk of the code is contained for the {@link Finish} class
+	 * This is where the bulk of the code is contained for the {@link Finish} class
 	 */
 	public void tick(LinkedList<GameObject> object){
+		
+		GameObject tempObject;
+		
+		for(int i = 0; i < object.size(); i++){
+			tempObject = object.get(i);
+			if(tempObject.getId() == ObjectId.Player){
+				if(getBounds().intersects(tempObject.getBounds())){
+					up = true;
+				}
+			}
+		}
+		
 	}
 	
 	/**
-	 * where the rendering of the {@link Player} is contained
+	 * Where the rendering of the {@link Finish} is contained
 	 */
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.BLUE.brighter().brighter());
 		
-		p.addPoint((int) x, (int) ((int) y + (height / 4)));
-		p.addPoint((int) ((int) x + width), (int) y);
-		p.addPoint((int) ((int) x + width), (int) ((int) y + (height / 4)));
-		g2d.drawPolygon(p);
+		if(!up){
+			g.drawImage(texture.finish[0], (int) x, (int) y, (int) width, (int) height, null);
+		}else if(up){
+			g.drawImage(texture.finish[1], (int) x, (int) y, (int) width, (int) height, null);
+		}
 		
-		/*p.addPoint((int) ((int) x + width) - 10, (int) (y + height));
-		p.addPoint((int) ((int) x + width), (int) (y + height));
-		g2d.fillPolygon(p);*/
-		
-		g2d.fillRect((int) ((int) x + width) - 5, (int) (y + (height / 4)), 5, (int) (height - (height / 4)));
-	
 		/*g2d.setColor(Color.RED);
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsBottom());

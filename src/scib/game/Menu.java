@@ -29,7 +29,6 @@ public class Menu {
 		g2d.draw(playButton);
 		g2d.draw(quitButton);
 
-
 		Font buttonFont = new Font("Georgia", Font.BOLD, 30);
 		fm = g2d.getFontMetrics(buttonFont);
 		g2d.setFont(buttonFont);

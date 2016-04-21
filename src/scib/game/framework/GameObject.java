@@ -53,29 +53,49 @@ public abstract class GameObject {
 	public abstract void render(Graphics g);
 	
 	/**
+	 * The whole player object
+	 * 
 	 * @return the rectangle of the whole object
 	 */
-	public abstract Rectangle getBounds();
-	
+	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int) y, (int) width, (int) height);
+	}
+
 	/**
+	 * The top box of the object
+	 * 
 	 * @return the top part of the object, used for collision
 	 */
-	public abstract Rectangle getBoundsTop();
+	public Rectangle getBoundsTop() {
+		return new Rectangle((int) ((int) x + width / 16), (int) y, (int) (width / 16) * 14, (int) (height / 2));
+	}
 	
 	/**
+	 * The bottom box of the object
+	 * 
 	 * @return the bottom part of the object, used for collision
 	 */
-	public abstract Rectangle getBoundsBottom();
+	public Rectangle getBoundsBottom() {
+		return new Rectangle((int) ((int) x + width / 16), (int) ((int) y + (height / 2)), (int) (width / 16) * 14, (int) (height / 2));
+	}
 	
 	/**
+	 * The Left box of the object
+	 * 
 	 * @return the left part of the object, used for collision
 	 */
-	public abstract Rectangle getBoundsLeft();
+	public Rectangle getBoundsLeft() {
+		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 16, (int) ((int) height - ((height / 16) * 2)));
+	}
 	
 	/**
+	 * Right box of the object
+	 * 
 	 * @return the right part of the object, used for collision
 	 */
-	public abstract Rectangle getBoundsRight();
+	public Rectangle getBoundsRight() {
+		return new Rectangle((int) ((int) x + ((width / 16) * 15)), (int) ((int) y + height / 16), (int) width / 16, (int) ((int) height - (height / 16) * 2));
+	}
 
 	/**
 	 * @return x value of the object
