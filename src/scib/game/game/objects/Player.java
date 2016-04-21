@@ -12,6 +12,7 @@ import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
+import scib.game.levels.Level1;
 
 public class Player extends GameObject {
 	
@@ -69,7 +70,7 @@ public class Player extends GameObject {
 			x = 0;
 		}
 
-		if((y + height) > Game.level1.getHeight() * 48 + (height * 2)){
+		if((y + height) > Level1.level.getHeight() * 48){
 			System.exit(1);
 		}
 

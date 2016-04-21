@@ -28,7 +28,7 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) tempObject.setVelX(-7); //Moves the player left
 				if((key == KeyEvent.VK_W  || key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) && !tempObject.isJumping() && tempObject.isFalling()){ //Lets the player jump
 					tempObject.setJumping(true);
-					tempObject.setVelY(-17);
+					tempObject.setVelY(-23);
 				}
 			}
 		}

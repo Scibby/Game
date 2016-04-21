@@ -19,6 +19,7 @@ import scib.game.framework.Texture;
 import scib.game.game.objects.Block;
 import scib.game.game.objects.Finish;
 import scib.game.game.objects.Player;
+import scib.game.levels.Level1;
 
 /**
  * @author Andrew Sciberras
@@ -51,18 +52,19 @@ public class Game extends Canvas implements Runnable{
 
 	private static Texture texture;
 
-	private int timeLeft;
 	private int tickCount;
-	
+	public int level;
+
 	private Handler handler;
-	public static BufferedImage level1;
 	static Camera cam;
 	public static int lives;
-	
+
 	Menu menu;
 	Pause pause;
 	HUD hud;
-	
+
+	Level1 level1;
+
 	public enum STATES{
 		MENU(),
 		GAME(),
@@ -80,19 +82,16 @@ public class Game extends Canvas implements Runnable{
 
 		cam = new Camera(0, 0);
 
-		ImageLoader loader = new ImageLoader();
-
-		level1 = loader.loadImage("/Level.png");
-		
 		this.addKeyListener(new KeyInput(handler));
 
 		this.addMouseListener(new MouseInput());
-		
+
+		level = 1;
+		loadLevel(level);
+
 		menu = new Menu();
 		pause = new Pause();
 		hud = new HUD();
-		
-		loadLevel(level1);
 
 	}
 
@@ -169,9 +168,9 @@ public class Game extends Canvas implements Runnable{
 			tickCount++;
 			if(tickCount >= 60){
 				tickCount = 0;
-				timeLeft--;
+				Level1.timeLeft--;
 			}
-			
+
 			for(int i = 0; i < handler.objectList.size(); i++) {
 				if(handler.objectList.get(i).getId() == ObjectId.Player){
 					cam.tick(handler.objectList.get(i));
@@ -191,16 +190,16 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		
+
 		Graphics2D g2d = (Graphics2D) g;
-		
+
 		if(state == STATES.GAME){
-			
+
 			g2d.setColor(new Color(44, 175, 219));
 			g2d.fillRect(0, 0, getWidth(), getHeight());
-			
+
 			g2d.setColor(Color.BLACK);
-			
+
 			if(cam.getX() > 0){
 				handler.render(g);
 				hud.render(g);
@@ -208,7 +207,7 @@ public class Game extends Canvas implements Runnable{
 			}else{
 
 				hud.render(g);
-				
+
 				g2d.translate(cam.getX(), cam.getY());
 
 				handler.render(g);
@@ -216,15 +215,15 @@ public class Game extends Canvas implements Runnable{
 				g2d.translate(-cam.getX(), -cam.getY());
 			}
 		}else if(state == STATES.MENU){
-			
+
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, getWidth(), getHeight());
-			
+
 			menu.render(g);
 		}else if(state == STATES.PAUSE){
 			pause.render(g);
 		}
-		
+
 		/*g.setColor(Color.WHITE);
 		g.drawString(ticks + " ticks, " + fps + " fps", 50, 50);*/
 
@@ -233,35 +232,15 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * Given an image, this method loads a level depending on certain colours in the .png file
+	 * Loads the level from a seperate class
 	 * 
-	 * @param level the image of the level which is being loaded
+	 * @param level the level which is being loaded
 	 */
-	public void loadLevel(BufferedImage level){
-		
-		timeLeft = 400;
-		lives = 3;
-		
-		for(int i = 0; i < level.getHeight(); i++){
-			for(int j = 0; j < level.getWidth(); j++){
-				Color c = new Color(level.getRGB(j, i));
-
-				if(c.getRGB() == Color.WHITE.getRGB()){
-					handler.addObject(new Block(j * 48, i * 48, 48, 48, 3, ObjectId.Block, handler));
-				}
-
-				if(c.getRGB() == new Color(128, 128, 128).getRGB()){
-					handler.addObject(new Block(j * 48, i * 48, 48, 48, 1, ObjectId.Block, handler));
-				}
-
-				if(c.getRGB() == Color.RED.getRGB()){
-					handler.addObject(new Player(j * 48, i * 48, 48, 48, ObjectId.Player, handler));
-				}
-
-				if(c.getRGB() == Color.BLUE.getRGB()){
-					handler.addObject(new Finish(j * 48, i * 48, 48, 128, ObjectId.Finish, handler));
-				}
-			}
+	public void loadLevel(int level){
+		switch(level){
+		case 1:
+			level1 = new Level1(handler);
+			return;
 		}
 	}
 

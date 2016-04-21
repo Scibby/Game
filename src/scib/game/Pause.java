@@ -24,7 +24,7 @@ public class Pause {
 		
 		Font titleFont = new Font("Georgia", Font.BOLD, 50);
 		g2d.setFont(titleFont);
-		g2d.setColor(Color.ORANGE);
+		g2d.setColor(Color.WHITE);
 
 		FontMetrics fm = g2d.getFontMetrics(titleFont);
 
