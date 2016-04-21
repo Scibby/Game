@@ -6,19 +6,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
 import scib.game.framework.Handler;
-import scib.game.framework.ImageLoader;
 import scib.game.framework.KeyInput;
 import scib.game.framework.MouseInput;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
-import scib.game.game.objects.Block;
-import scib.game.game.objects.Finish;
-import scib.game.game.objects.Player;
 import scib.game.levels.Level1;
 
 /**
@@ -197,7 +192,7 @@ public class Game extends Canvas implements Runnable{
 
 		if(state == STATES.GAME){
 
-			g2d.setColor(new Color(44, 175, 219));
+			g2d.setColor(new Color(10, 25, 112));
 			g2d.fillRect(0, 0, getWidth(), getHeight());
 
 			g2d.setColor(Color.BLACK);
@@ -205,11 +200,12 @@ public class Game extends Canvas implements Runnable{
 			if(cam.getX() > 0){
 				handler.render(g);
 				hud.render(g);
-
+				g.drawImage(texture.moon, getWidth() - texture.moon.getWidth() * 2, 0, texture.moon.getWidth() * 2, texture.moon.getHeight() * 2, null);
 			}else{
 
 				hud.render(g);
-
+				g.drawImage(texture.moon, getWidth() - texture.moon.getWidth() * 2, 0, texture.moon.getWidth() * 2, texture.moon.getHeight() * 2, null);
+				
 				g2d.translate(cam.getX(), cam.getY());
 
 				handler.render(g);

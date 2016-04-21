@@ -56,8 +56,8 @@ public class Player extends GameObject {
 		super(x, y, width, height, id, handler);
 		this.spawnX = x;
 		this.spawnY = y;
-		walkRight = new Animation(2, texture.player[3], texture.player[2], texture.player[1]);
-		walkLeft = new Animation(2, texture.player[6], texture.player[7], texture.player[8]);
+		walkRight = new Animation(4, texture.player[3], texture.player[2], texture.player[1]);
+		walkLeft = new Animation(4, texture.player[6], texture.player[7], texture.player[8]);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class Player extends GameObject {
 	}
 	
 	private void loseLife(){
-		if(Game.lives <= 0){
+		if(Game.lives <= 1){
 			Game.state = STATES.GAMEOVER;
 		}else{
 			Game.lives--;

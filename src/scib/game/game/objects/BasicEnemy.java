@@ -21,10 +21,9 @@ public class BasicEnemy extends GameObject{
 	private final float GRAVITY = 1.5f;
 	private final int MAX_SPEED = 15;
 	
-	
 	public BasicEnemy(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
-		enemyWalk = new Animation(5, texture.enemy[0], texture.enemy[1]);
+		enemyWalk = new Animation(10, texture.enemy[0], texture.enemy[1]);
 		velX = -2;
 	}
 

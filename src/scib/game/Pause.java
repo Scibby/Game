@@ -17,7 +17,7 @@ public class Pause {
 	
 	public void render(Graphics g){
 		
-		g.setColor(new Color(44, 175, 219));
+		g.setColor(new Color(10, 25, 112));
 		g.fillRect(0, 0, Game.WIDTH, 100);
 		
 		Graphics2D g2d = (Graphics2D) g;

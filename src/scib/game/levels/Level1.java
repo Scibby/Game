@@ -17,9 +17,9 @@ public class Level1{
 	public static BufferedImage level = loader.loadImage("/Level.png");
 	
 	public Level1(Handler handler){handler.addObject(new Finish(2784, 240, 144, 576, ObjectId.Finish, handler));
-	handler.addObject(new Player(1200, 624, 48, 48, ObjectId.Player, handler));
-	handler.addObject(new BasicEnemy(2304, 672, 48, 48, ObjectId.BasicEnemy, handler));
-	handler.addObject(new BasicEnemy(2496, 672, 48, 48, ObjectId.BasicEnemy, handler));
+	handler.addObject(new Player(1200, 624, 64, 64, ObjectId.Player, handler));
+	handler.addObject(new BasicEnemy(2304, 600, 64, 64, ObjectId.BasicEnemy, handler));
+	handler.addObject(new BasicEnemy(2496, 600, 64, 64, ObjectId.BasicEnemy, handler));
 	handler.addObject(new Block(0, 816, 48, 48, 1, ObjectId.Block, handler));
 	handler.addObject(new Block(48, 816, 48, 48, 1, ObjectId.Block, handler));
 	handler.addObject(new Block(96, 816, 48, 48, 1, ObjectId.Block, handler));
