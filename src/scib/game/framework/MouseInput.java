@@ -1,5 +1,6 @@
 package scib.game.framework;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseListener;
 
 import scib.game.Game;
@@ -19,6 +20,7 @@ public class MouseInput implements MouseListener{
 	/*
 	 * 	Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 75, 150, 150, 50);
 	 * 	Rectangle quitButton = new Rectangle(Game.WIDTH / 2 - 75, 225, 150, 50);
+	 *  Rectangle continueButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
 	 */
 
 	public void mousePressed(java.awt.event.MouseEvent e){
@@ -27,13 +29,19 @@ public class MouseInput implements MouseListener{
 		if(Game.state == STATES.MENU || Game.state == STATES.PAUSE){
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > 150 && my < 200){
-					Game.state = STATES.GAME; 
+					Game.state = STATES.INTRO; 
 				}
 			}
 
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > 225 && my < 275){
 					System.exit(1);
+				}
+			}
+		}else if(Game.state == STATES.INTRO){
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT){
+					Game.state = STATES.GAME;
 				}
 			}
 		}

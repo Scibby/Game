@@ -13,6 +13,7 @@ public class Texture {
 	public BufferedImage[] player = new BufferedImage[18];
 	public BufferedImage[] finish = new BufferedImage[2];
 	public BufferedImage[] enemy = new BufferedImage[2];
+	public BufferedImage[] instruct = new BufferedImage[3];
 	public BufferedImage moon;
 
 	public Texture(){
@@ -26,6 +27,10 @@ public class Texture {
 		
 		finish[0] = loader.loadImage("/flagDown.png");
 		finish[1] = loader.loadImage("/flagUp.png");
+		
+		instruct[0] = loader.loadImage("/wasd.png");
+		instruct[1] = loader.loadImage("/arrows.png");
+		instruct[2] = loader.loadImage("/space.png");
 		
 		bs = new SpriteSheet(blockSheet);
 		ps = new SpriteSheet(playerSheet);

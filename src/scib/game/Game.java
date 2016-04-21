@@ -57,11 +57,13 @@ public class Game extends Canvas implements Runnable{
 	Pause pause;
 	HUD hud;
 	Gameover gameover;
+	Intro intro;
 
 	static Level1 level1;
 
 	public enum STATES{
 		MENU(),
+		INTRO(),
 		GAME(),
 		PAUSE(),
 		GAMEOVER();
@@ -89,6 +91,7 @@ public class Game extends Canvas implements Runnable{
 		pause = new Pause();
 		hud = new HUD();
 		gameover = new Gameover();
+		intro = new Intro();
 	}
 
 	/**
@@ -221,6 +224,8 @@ public class Game extends Canvas implements Runnable{
 			pause.render(g);
 		}else if(state == STATES.GAMEOVER){
 			gameover.render(g);
+		}else if(state == STATES.INTRO){
+			intro.render(g);
 		}
 
 		/*g.setColor(Color.WHITE);
