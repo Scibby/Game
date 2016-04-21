@@ -53,22 +53,24 @@ public class Game extends Canvas implements Runnable{
 	private static Texture texture;
 
 	private int tickCount;
-	public int level;
+	public static int level;
 
-	private Handler handler;
+	private static Handler handler;
 	static Camera cam;
 	public static int lives = 3;
 
 	Menu menu;
 	Pause pause;
 	HUD hud;
+	Gameover gameover;
 
-	Level1 level1;
+	static Level1 level1;
 
 	public enum STATES{
 		MENU(),
 		GAME(),
-		PAUSE();
+		PAUSE(),
+		GAMEOVER();
 	}
 
 	public static STATES state = STATES.MENU;
@@ -92,6 +94,7 @@ public class Game extends Canvas implements Runnable{
 		menu = new Menu();
 		pause = new Pause();
 		hud = new HUD();
+		gameover = new Gameover();
 	}
 
 	/**
@@ -221,6 +224,8 @@ public class Game extends Canvas implements Runnable{
 			menu.render(g);
 		}else if(state == STATES.PAUSE){
 			pause.render(g);
+		}else if(state == STATES.GAMEOVER){
+			gameover.render(g);
 		}
 
 		/*g.setColor(Color.WHITE);
@@ -235,7 +240,7 @@ public class Game extends Canvas implements Runnable{
 	 * 
 	 * @param level the level which is being loaded
 	 */
-	public void loadLevel(int level){
+	public static void loadLevel(int level){
 		switch(level){
 		case 1:
 			level1 = new Level1(handler);

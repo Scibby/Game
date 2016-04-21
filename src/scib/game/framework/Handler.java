@@ -58,4 +58,10 @@ public class Handler {
 		this.objectList.remove(object);
 	}
 
+	/**
+	 * Clears the whole level
+	 */
+	public void clearLevel(){
+		objectList.clear();
+	}
 }

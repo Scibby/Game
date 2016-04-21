@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import scib.game.Game;
+import scib.game.Game.STATES;
 import scib.game.framework.Animation;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
@@ -26,9 +27,10 @@ public class Player extends GameObject {
 	 */
 	private final float MAX_SPEED = 15;
 	
-	private Texture texture;
+	private Texture texture = Game.getTexture();
 	private Animation walkRight;
 	private Animation walkLeft;
+	private float spawnX, spawnY;
 	
 	private enum Direction{
 		Right(),
@@ -52,7 +54,8 @@ public class Player extends GameObject {
 	 */
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
 		super(x, y, width, height, id, handler);
-		texture = Game.getTexture();
+		this.spawnX = x;
+		this.spawnY = y;
 		walkRight = new Animation(2, texture.player[3], texture.player[2], texture.player[1]);
 		walkLeft = new Animation(2, texture.player[6], texture.player[7], texture.player[8]);
 	}
@@ -71,7 +74,7 @@ public class Player extends GameObject {
 		}
 
 		if((y + height) > Level1.level.getHeight() * 48){
-			System.exit(1);
+			loseLife();
 		}
 
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
@@ -139,7 +142,7 @@ public class Player extends GameObject {
 				}
 			}else if(tempObject.getId() == ObjectId.BasicEnemy){
 				if(getBounds().intersects(tempObject.getBounds())){
-					//Player dies
+					loseLife();
 				}
 			}
 		}
@@ -185,4 +188,15 @@ public class Player extends GameObject {
 		
 		g.setColor(Color.WHITE);
 	}
+	
+	private void loseLife(){
+		if(Game.lives <= 0){
+			Game.state = STATES.GAMEOVER;
+		}else{
+			Game.lives--;
+			handler.clearLevel();
+			Game.loadLevel(Game.level);
+		}
+	}
+	
 }
