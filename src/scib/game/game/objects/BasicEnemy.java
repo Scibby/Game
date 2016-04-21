@@ -24,7 +24,7 @@ public class BasicEnemy extends GameObject{
 	public BasicEnemy(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
 		enemyWalk = new Animation(10, texture.enemy[0], texture.enemy[1]);
-		velX = -2;
+		//velX = -2;
 	}
 
 	public void tick(LinkedList<GameObject> object){

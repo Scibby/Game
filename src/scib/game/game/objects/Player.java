@@ -33,6 +33,7 @@ public class Player extends GameObject {
 	private Animation hitRight;
 	private Animation hitLeft;
 	private int count;
+	private Rectangle shovel = new Rectangle((int) ((int) x + width), (int) height / 2, (int) width / 4, (int) height / 8);
 
 	public static int lives = 3;
 	public static int points = 0;
@@ -109,6 +110,8 @@ public class Player extends GameObject {
 		hitRight.runAnimation(); //Runs the hitRight animation
 		hitLeft.runAnimation(); //Runs the hitLeft animation
 
+		shovel.setLocation((int) ((int) x + width), (int) (y + (height / 2)));
+		
 		collision();
 	}
 
@@ -166,6 +169,11 @@ public class Player extends GameObject {
 					}else if(!hit){
 						loseLife();
 					}
+				}else if(shovel.intersects(tempObject.getBounds())){
+					if(hit && !jumping){
+						handler.removeObject(tempObject);
+						points += 100;
+					}
 				}
 			}
 		}
@@ -222,6 +230,9 @@ public class Player extends GameObject {
 		g2d.draw(getBoundsLeft());
 		g2d.draw(getBoundsRight());*/
 
+		/*g2d.setColor(Color.RED);
+		g2d.fill(shovel);*/
+		
 		g.setColor(Color.WHITE);
 	}
 
