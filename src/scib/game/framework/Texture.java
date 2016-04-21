@@ -10,7 +10,7 @@ public class Texture {
 	private BufferedImage enemySheet = null;
 	
 	public BufferedImage[] block = new BufferedImage[4];
-	public BufferedImage[] player = new BufferedImage[10];
+	public BufferedImage[] player = new BufferedImage[18];
 	public BufferedImage[] finish = new BufferedImage[2];
 	public BufferedImage[] enemy = new BufferedImage[2];
 	public BufferedImage moon;
@@ -54,6 +54,17 @@ public class Texture {
 		player[7] = ps.getImage(7, 2, 32, 32); //Player walk left 2
 		player[8] = ps.getImage(8, 2, 32, 32); //Player walk left 3
 		player[9] = ps.getImage(8, 3, 32, 32); //Player jump left
+		
+		
+		player[10] = ps.getImage(1, 4, 32, 32); //Player hit idle right
+		player[11] = ps.getImage(1, 5, 32, 32); //Player hit walk right 1
+		player[12] = ps.getImage(2, 5, 32, 32); //Player hit walk right 2
+		player[13] = ps.getImage(3, 5, 32, 32); //Player hit walk right 3
+		
+		player[14] = ps.getImage(8, 4, 32, 32); ///Player hit idle left
+		player[15] = ps.getImage(6, 5, 32, 32); //Player hit walk left 1
+		player[16] = ps.getImage(7, 5, 32, 32); //Player hit walk left 2
+		player[17] = ps.getImage(8, 5, 32, 32); //Player hit walk left 3
 		
 		enemy[0] = es.getImage(1, 1, 32, 32); //Enemy image 1
 		enemy[1] = es.getImage(1, 2, 32, 32); //Enemy image 2

@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import scib.game.Game;
 import scib.game.Game.STATES;
+import scib.game.game.objects.Player;
 
 public class KeyInput extends KeyAdapter{
 
@@ -26,9 +27,12 @@ public class KeyInput extends KeyAdapter{
 			if(tempObject.getId() == ObjectId.Player){
 				if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) tempObject.setVelX(7); //Moves the player right
 				if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) tempObject.setVelX(-7); //Moves the player left
-				if((key == KeyEvent.VK_W  || key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) && !tempObject.isJumping() && tempObject.isFalling()){ //Lets the player jump
+				if((key == KeyEvent.VK_W  || key == KeyEvent.VK_UP) && !tempObject.isJumping() && tempObject.isFalling()){ //Lets the player jump
 					tempObject.setJumping(true);
 					tempObject.setVelY(-23);
+				}
+				if(key == KeyEvent.VK_SPACE){
+					Player.hit = true;
 				}
 			}
 		}

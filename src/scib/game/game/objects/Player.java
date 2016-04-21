@@ -16,32 +16,39 @@ import scib.game.framework.Texture;
 import scib.game.levels.Level1;
 
 public class Player extends GameObject {
-	
+
 	/**
 	 * Gravity of the player, how fast he falls to the ground
 	 */
 	private final float GRAVITY = 1.25f;
-	
+
 	/**
 	 * Max speed of the player
 	 */
 	private final float MAX_SPEED = 15;
-	
+
 	private Texture texture = Game.getTexture();
 	private Animation walkRight;
 	private Animation walkLeft;
-	private float spawnX, spawnY;
-	
+	private Animation hitRight;
+	private Animation hitLeft;
+	private int count;
+
+	public static int lives = 3;
+	public static int points = 0;
+
+	public static boolean hit = false;
+
 	private enum Direction{
 		Right(),
 		Left();
 	}
-	
+
 	/**
 	 * Direction the player is facing
 	 */
 	private Direction direction = Direction.Right;
-	
+
 	/**
 	 * Creates a new player
 	 * 
@@ -54,10 +61,10 @@ public class Player extends GameObject {
 	 */
 	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
 		super(x, y, width, height, id, handler);
-		this.spawnX = x;
-		this.spawnY = y;
 		walkRight = new Animation(4, texture.player[3], texture.player[2], texture.player[1]);
 		walkLeft = new Animation(4, texture.player[6], texture.player[7], texture.player[8]);
+		hitRight = new Animation(4, texture.player[13], texture.player[12], texture.player[11]);
+		hitLeft = new Animation(4, texture.player[15], texture.player[16], texture.player[17]);
 	}
 
 	/**
@@ -68,7 +75,7 @@ public class Player extends GameObject {
 	public void tick(LinkedList<GameObject> object){
 		x += velX;
 		y += velY;
-		
+
 		if(x < 0){
 			x = 0;
 		}
@@ -81,16 +88,27 @@ public class Player extends GameObject {
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
 
 		if(falling || jumping) velY += GRAVITY;
-		
+
 		if(velX > 0){
 			direction = Direction.Right;
 		}else if(velX < 0){
 			direction = Direction.Left;
 		}
-		
+
+		if(hit){
+			count++;
+			if(count == 12){
+				hit = false;
+				count = 0;
+			}
+		}
+
 		walkRight.runAnimation(); //Runs the walkRight animation
 		walkLeft.runAnimation(); //Runs the walkLeft animation
-		
+
+		hitRight.runAnimation(); //Runs the hitRight animation
+		hitLeft.runAnimation(); //Runs the hitLeft animation
+
 		collision();
 	}
 
@@ -142,7 +160,12 @@ public class Player extends GameObject {
 				}
 			}else if(tempObject.getId() == ObjectId.BasicEnemy){
 				if(getBounds().intersects(tempObject.getBounds())){
-					loseLife();
+					if(hit && !jumping){
+						handler.removeObject(tempObject);
+						points += 100;
+					}else if(!hit){
+						loseLife();
+					}
 				}
 			}
 		}
@@ -157,46 +180,59 @@ public class Player extends GameObject {
 
 		g.setColor(Color.RED);
 		//g.fillRect((int) x, (int) y, (int) width, (int) height);
-
-		if(isJumping()){
-			if(direction == Direction.Right){
-				g.drawImage(texture.player[4], (int) x, (int) y, (int) width, (int) height, null);
-			}else if(direction == Direction.Left){
-				g.drawImage(texture.player[9], (int) x, (int) y, (int) width, (int) height, null);
-			}
-		}else{
-			if(velX > 0){
-				walkRight.drawAnimation(g, (int) x,(int) y, (int) width, (int) height);
-			}else if(velX < 0){
-				walkLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+		if(!hit){
+			if(isJumping()){
+				if(direction == Direction.Right){
+					g.drawImage(texture.player[4], (int) x, (int) y, (int) width, (int) height, null);
+				}else if(direction == Direction.Left){
+					g.drawImage(texture.player[9], (int) x, (int) y, (int) width, (int) height, null);
+				}
 			}else{
-				if(velX == 0){
-					if(direction == Direction.Right){
-						g.drawImage(texture.player[0], (int) x, (int) y, (int) width, (int) height, null);
-					}else if(direction == Direction.Left){
-						g.drawImage(texture.player[5], (int) x, (int) y, (int) width, (int) height, null);
+				if(velX > 0){
+					walkRight.drawAnimation(g, (int) x,(int) y, (int) width, (int) height);
+				}else if(velX < 0){
+					walkLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+				}else{
+					if(velX == 0){
+						if(direction == Direction.Right){
+							g.drawImage(texture.player[0], (int) x, (int) y, (int) width, (int) height, null);
+						}else if(direction == Direction.Left){
+							g.drawImage(texture.player[5], (int) x, (int) y, (int) width, (int) height, null);
+						}
 					}
 				}
 			}
+		}else if(hit){
+			if(velX > 0){
+				hitRight.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+			}else if(velX < 0){
+				hitLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+			}else{
+				if(direction == Direction.Right){
+					g.drawImage(texture.player[10], (int) x, (int) y, (int) width, (int) height, null);
+				}else if(direction == Direction.Left){
+					g.drawImage(texture.player[14], (int) x, (int) y, (int) width, (int) height, null);
+				}
+			}
 		}
-		
+
 		/*g2d.setColor(Color.BLUE);
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsBottom());
 		g2d.draw(getBoundsLeft());
 		g2d.draw(getBoundsRight());*/
-		
+
 		g.setColor(Color.WHITE);
 	}
-	
+
 	private void loseLife(){
-		if(Game.lives <= 1){
+		if(lives <= 1){
 			Game.state = STATES.GAMEOVER;
 		}else{
-			Game.lives--;
+			lives--;
 			handler.clearLevel();
 			Game.loadLevel(Game.level);
 		}
 	}
-	
+
 }

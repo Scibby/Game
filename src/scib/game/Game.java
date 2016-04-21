@@ -52,7 +52,6 @@ public class Game extends Canvas implements Runnable{
 
 	private static Handler handler;
 	static Camera cam;
-	public static int lives = 3;
 
 	Menu menu;
 	Pause pause;
