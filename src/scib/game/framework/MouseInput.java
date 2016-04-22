@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 
 import scib.game.Game;
 import scib.game.Game.STATES;
+import scib.game.game.objects.Player;
 
 public class MouseInput implements MouseListener{
 
@@ -20,7 +21,12 @@ public class MouseInput implements MouseListener{
 	/*
 	 * 	Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 75, 150, 150, 50);
 	 * 	Rectangle quitButton = new Rectangle(Game.WIDTH / 2 - 75, 225, 150, 50);
+	 * 
 	 *  Rectangle continueButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
+	 *  
+	 *  Rectangle replayButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 200, 150, 50);
+	 *	Rectangle quitButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
+	 *  
 	 */
 
 	public void mousePressed(java.awt.event.MouseEvent e){
@@ -40,8 +46,23 @@ public class MouseInput implements MouseListener{
 			}
 		}else if(Game.state == STATES.INTRO){
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
-				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT){
+				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
 					Game.state = STATES.GAME;
+				}
+			}
+		}else if(Game.state == STATES.WIN){
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > Game.HEIGHT - 200 && my < Game.HEIGHT - 150){
+					Game.state = STATES.GAME;
+					Player.lives = 3;
+					Player.points = 0;
+					Game.level = 1;
+				}
+			}
+
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
+					System.exit(1);
 				}
 			}
 		}

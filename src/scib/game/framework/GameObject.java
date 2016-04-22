@@ -85,7 +85,7 @@ public abstract class GameObject {
 	 * @return the left part of the object, used for collision
 	 */
 	public Rectangle getBoundsLeft() {
-		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 8, (int) ((int) height - ((height / 16) * 2)));
+		return new Rectangle((int) x, (int) ((int) y + height / 8), (int) width / 8, (int) ((int) height - ((height / 8) * 2)));
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public abstract class GameObject {
 	 * @return the right part of the object, used for collision
 	 */
 	public Rectangle getBoundsRight() {
-		return new Rectangle((int) ((int) x + ((width / 8) * 7)), (int) ((int) y + height / 16), (int) width / 8, (int) ((int) height - (height / 16) * 2));
+		return new Rectangle((int) ((int) x + ((width / 8) * 7)), (int) ((int) y + height / 8), (int) width / 8, (int) ((int) height - (height / 8) * 2));
 	}
 
 	/**

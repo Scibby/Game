@@ -17,6 +17,10 @@ public class HUD {
 	
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
+		
+		g.setColor(new Color(10, 25, 112));
+		g.fillRect(0, 0, Game.WIDTH - 128, 100);
+		
 		FontMetrics fm;
 		Font hudFont = new Font("Georgia", Font.BOLD, 25);
 		

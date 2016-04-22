@@ -11,14 +11,16 @@ import scib.game.game.objects.EnemyHitBox;
 import scib.game.game.objects.Finish;
 import scib.game.game.objects.Player;
 
-public class Level1{
-	
-	static ImageLoader loader = new ImageLoader();
-	public static int timeLeft = 400;
-	public static BufferedImage level = loader.loadImage("/Level1.png");
-	
-	public Level1(Handler handler){ 
+public class Level1 extends Level{
 
+	static ImageLoader loader = new ImageLoader();
+	public static int timeLeft = 200;
+	public static BufferedImage level = loader.loadImage("/Level1.png");
+
+	public Level1(Handler handler){ 
+		super(handler);
+
+		
 		handler.addObject(new Finish(5712, 240, 144, 576, ObjectId.Finish, handler));
 		handler.addObject(new EnemyHitBox(3312, 384, 48, 48, ObjectId.EnemyHitBox, handler));
 		handler.addObject(new BasicEnemy(3408, 384, 48, 48, ObjectId.BasicEnemy, handler));
@@ -221,8 +223,6 @@ public class Level1{
 		handler.addObject(new Block(2016, 816, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2064, 816, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2112, 816, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2400, 816, 48, 48, 1, ObjectId.Block, handler));
-		handler.addObject(new Block(2448, 816, 48, 48, 1, ObjectId.Block, handler));
 		handler.addObject(new Block(2496, 816, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2544, 816, 48, 48, 1, ObjectId.Block, handler));
 		handler.addObject(new Block(2592, 816, 48, 48, 1, ObjectId.Block, handler));
@@ -330,8 +330,6 @@ public class Level1{
 		handler.addObject(new Block(2016, 864, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2064, 864, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2112, 864, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2400, 864, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2448, 864, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2496, 864, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2544, 864, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2592, 864, 48, 48, 3, ObjectId.Block, handler));
@@ -439,8 +437,6 @@ public class Level1{
 		handler.addObject(new Block(2016, 912, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2064, 912, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2112, 912, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2400, 912, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2448, 912, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2496, 912, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2544, 912, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2592, 912, 48, 48, 3, ObjectId.Block, handler));
@@ -548,8 +544,6 @@ public class Level1{
 		handler.addObject(new Block(2016, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2064, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2112, 960, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2400, 960, 48, 48, 3, ObjectId.Block, handler));
-		handler.addObject(new Block(2448, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2496, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2544, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(2592, 960, 48, 48, 3, ObjectId.Block, handler));
@@ -625,7 +619,6 @@ public class Level1{
 
 		
 		
-		
-		
+
 	}
 }

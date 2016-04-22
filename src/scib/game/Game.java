@@ -14,7 +14,9 @@ import scib.game.framework.KeyInput;
 import scib.game.framework.MouseInput;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
+import scib.game.levels.Level;
 import scib.game.levels.Level1;
+import scib.game.levels.Level2;
 
 /**
  * @author Andrew Sciberras
@@ -39,7 +41,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * Title of window
 	 */
-	public static final String TITLE = "Scibby Platformer";
+	public static final String TITLE = "Platformer";
 
 	private boolean running = false;
 	private Thread thread;
@@ -58,14 +60,16 @@ public class Game extends Canvas implements Runnable{
 	HUD hud;
 	Gameover gameover;
 	Intro intro;
+	Win win;
 
-	static Level1 level1;
+	public static Level[] levels = new Level[2];
 
 	public enum STATES{
 		MENU(),
 		INTRO(),
 		GAME(),
 		PAUSE(),
+		WIN(),
 		GAMEOVER();
 	}
 
@@ -92,6 +96,7 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD();
 		gameover = new Gameover();
 		intro = new Intro();
+		win = new Win();
 	}
 
 	/**
@@ -207,7 +212,7 @@ public class Game extends Canvas implements Runnable{
 
 				hud.render(g);
 				g.drawImage(texture.moon, getWidth() - texture.moon.getWidth() * 2, 0, texture.moon.getWidth() * 2, texture.moon.getHeight() * 2, null);
-				
+
 				g2d.translate(cam.getX(), cam.getY());
 
 				handler.render(g);
@@ -226,6 +231,8 @@ public class Game extends Canvas implements Runnable{
 			gameover.render(g);
 		}else if(state == STATES.INTRO){
 			intro.render(g);
+		}else if(state == STATES.WIN){
+			win.render(g);
 		}
 
 		/*g.setColor(Color.WHITE);
@@ -243,9 +250,16 @@ public class Game extends Canvas implements Runnable{
 	public static void loadLevel(int level){
 		switch(level){
 		case 1:
-			level1 = new Level1(handler);
+			levels[1 - 1] = new Level1(handler);
 			return;
+		case 2:
+			handler.clearLevel();
+			levels[2 - 1] = new Level2(handler);
+			return;
+		default:
+			state = STATES.WIN;
 		}
+
 	}
 
 	/**

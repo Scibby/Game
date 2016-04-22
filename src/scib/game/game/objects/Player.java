@@ -33,7 +33,7 @@ public class Player extends GameObject {
 	private Animation hitRight;
 	private Animation hitLeft;
 	private int count;
-	private Rectangle shovel = new Rectangle((int) ((int) x + width), (int) height / 2, (int) width / 4, (int) height / 8);
+	private Rectangle shovel = new Rectangle((int) ((int) x + width), (int) height / 2, (int) width / 3, (int) height / 8);
 
 	public static int lives = 3;
 	public static int points = 0;
@@ -81,9 +81,9 @@ public class Player extends GameObject {
 			x = 0;
 		}
 
-		/*if((y + height) > Level1.level.getHeight() * 32){
+		if((y + height) > Level1.level.getHeight() * 48){
 			loseLife();
-		}*/
+		}
 
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
@@ -98,7 +98,7 @@ public class Player extends GameObject {
 
 		if(hit){
 			count++;
-			if(count == 12){
+			if(count == 18){
 				hit = false;
 				count = 0;
 			}
@@ -162,7 +162,7 @@ public class Player extends GameObject {
 					setX(tempObject.getX() + getWidth());
 				}
 			}else if(tempObject.getId() == ObjectId.BasicEnemy){
-				if(getBounds().intersects(tempObject.getBounds())){
+				if(getBoundsRight().intersects(tempObject.getBoundsLeft()) || getBoundsLeft().intersects(tempObject.getBoundsRight())){
 					if(hit && !jumping){
 						handler.removeObject(tempObject);
 						points += 100;
@@ -174,6 +174,9 @@ public class Player extends GameObject {
 						handler.removeObject(tempObject);
 						points += 100;
 					}
+				}else if(getBoundsBottom().intersects(tempObject.getBoundsTop())){
+					handler.removeObject(tempObject);
+					points += 100;
 				}
 			}
 		}
@@ -188,7 +191,6 @@ public class Player extends GameObject {
 
 		g.setColor(Color.RED);
 		//g.fillRect((int) x, (int) y, (int) width, (int) height);
-		
 		
 		if(!hit){
 			if(isJumping()){
