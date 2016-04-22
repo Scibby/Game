@@ -35,15 +35,15 @@ public class Intro{
 		g2d.setColor(Color.WHITE);
 		
 		g2d.drawString("You are Fred.", (Game.WIDTH / 2) - (fm.stringWidth("You are Fred,") / 2), 30);
-		g2d.drawString("You are a gravedigger at the local cemertery.", (Game.WIDTH / 2) - (fm.stringWidth("You are a gravedigger at the local cemertery.") / 2), 60);
+		g2d.drawString("You are a gravedigger at the local cemetery.", (Game.WIDTH / 2) - (fm.stringWidth("You are a gravedigger at the local cemetery.") / 2), 60);
 		g2d.drawString("Today was bring your daughter to work day, so you brought your 5-year-old daughter Mary to work.",
 				(Game.WIDTH / 2) - (fm.stringWidth("Today was bring your daughter to work day, so you brought your 5-year-old daughter Mary to work.") / 2), 90);
-		g2d.drawString("Late at night, when you were about to go home, one of the recently burried bodies rose from the dead",
+		g2d.drawString("Late at night, when you were about to go home, one of the recently buried bodies rose from the dead",
 				(Game.WIDTH / 2) - (fm.stringWidth("Late at night, when you were about to go home, one of the recently burried bodies rose from the dead") / 2), 120);
 		g2d.drawString("and snached your poor daughter!", (Game.WIDTH / 2) - (fm.stringWidth("and snached your poor daughter!") / 2), 150);
 		g2d.drawString("It is your mission to venture through the vast graveyard and bring back your daughter!", (Game.WIDTH / 2) - (fm.stringWidth("It is your mission to venture through the vast graveyard and bring back your daughter!") / 2), 180);
-		g2d.drawString("It won't be easy however, as the one who took your daughter has fled to one of the badly kept parts of the cemerery.",
-				(Game.WIDTH / 2) - (fm.stringWidth("It won't be easy however, as the one who took your daughter has fled to one of the badly kept parts of the cemerery.") / 2), 210);
+		g2d.drawString("It won't be easy however, as the one who took your daughter has fled to one of the badly kept parts of the cemetery.",
+				(Game.WIDTH / 2) - (fm.stringWidth("It won't be easy however, as the one who took your daughter has fled to one of the badly kept parts of the cemetery.") / 2), 210);
 		g2d.drawString("And he has summoned a bunch of skeletons to try to stop you.", (Game.WIDTH / 2) - (fm.stringWidth("And he has summoned a bunch of skeletons to try to stop you.") / 2), 240);
 		g2d.drawString("But with your trusty spade! You can conquer anything!", (Game.WIDTH / 2) - (fm.stringWidth("But with your trusty spade! You can conquer anything!") / 2), 270);
 		
