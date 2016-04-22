@@ -67,7 +67,7 @@ public abstract class GameObject {
 	 * @return the top part of the object, used for collision
 	 */
 	public Rectangle getBoundsTop() {
-		return new Rectangle((int) ((int) x + width / 16), (int) y, (int) (width / 16) * 14, (int) (height / 2));
+		return new Rectangle((int) ((int) x + width / 8), (int) y, (int) (width / 8) * 6, (int) (height / 2));
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public abstract class GameObject {
 	 * @return the bottom part of the object, used for collision
 	 */
 	public Rectangle getBoundsBottom() {
-		return new Rectangle((int) ((int) x + width / 16), (int) ((int) y + (height / 2)), (int) (width / 16) * 14, (int) (height / 2));
+		return new Rectangle((int) ((int) x + width / 8), (int) ((int) y + (height / 2)), (int) (width / 8) * 6, (int) (height / 2));
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public abstract class GameObject {
 	 * @return the left part of the object, used for collision
 	 */
 	public Rectangle getBoundsLeft() {
-		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 16, (int) ((int) height - ((height / 16) * 2)));
+		return new Rectangle((int) x, (int) ((int) y + height / 16), (int) width / 8, (int) ((int) height - ((height / 16) * 2)));
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public abstract class GameObject {
 	 * @return the right part of the object, used for collision
 	 */
 	public Rectangle getBoundsRight() {
-		return new Rectangle((int) ((int) x + ((width / 16) * 15)), (int) ((int) y + height / 16), (int) width / 16, (int) ((int) height - (height / 16) * 2));
+		return new Rectangle((int) ((int) x + ((width / 8) * 7)), (int) ((int) y + height / 16), (int) width / 8, (int) ((int) height - (height / 16) * 2));
 	}
 
 	/**

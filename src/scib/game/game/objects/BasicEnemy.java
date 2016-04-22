@@ -24,7 +24,7 @@ public class BasicEnemy extends GameObject{
 	public BasicEnemy(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
 		enemyWalk = new Animation(10, texture.enemy[0], texture.enemy[1]);
-		//velX = -2;
+		velX = -2;
 	}
 
 	public void tick(LinkedList<GameObject> object){
@@ -49,7 +49,7 @@ public class BasicEnemy extends GameObject{
 
 			GameObject tempObject = handler.objectList.get(i);
 
-			if(tempObject.getId() == ObjectId.Block){
+			if(tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.EnemyHitBox){
 
 				/**
 				 * Top collision
@@ -76,16 +76,14 @@ public class BasicEnemy extends GameObject{
 				 * Right collision
 				 */
 				if(getBoundsRight().intersects(tempObject.getBounds())){
-					//setVelX(0);
-					setX(tempObject.getX() - getWidth());
+					velX = -2;
 				}
 
 				/**
 				 * Left collision
 				 */
 				if(getBoundsLeft().intersects(tempObject.getBounds())){
-					//setVelX(0);
-					setX(tempObject.getX() + getWidth());
+					velX = 2;
 				}
 			}
 		}

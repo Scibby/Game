@@ -81,9 +81,9 @@ public class Player extends GameObject {
 			x = 0;
 		}
 
-		if((y + height) > Level1.level.getHeight() * 48){
+		/*if((y + height) > Level1.level.getHeight() * 32){
 			loseLife();
-		}
+		}*/
 
 		if(velX > MAX_SPEED) velX = MAX_SPEED;
 		if(velY > MAX_SPEED) velY = MAX_SPEED;
@@ -188,6 +188,8 @@ public class Player extends GameObject {
 
 		g.setColor(Color.RED);
 		//g.fillRect((int) x, (int) y, (int) width, (int) height);
+		
+		
 		if(!hit){
 			if(isJumping()){
 				if(direction == Direction.Right){
