@@ -27,6 +27,7 @@ public class MouseInput implements MouseListener{
 	 *  Rectangle replayButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 200, 150, 50);
 	 *	Rectangle quitButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
 	 *  
+	 *  Rectangle replayButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
 	 */
 
 	public void mousePressed(java.awt.event.MouseEvent e){
@@ -63,6 +64,16 @@ public class MouseInput implements MouseListener{
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
 					System.exit(1);
+				}
+			}
+		}else if(Game.state == STATES.GAMEOVER){
+			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
+				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
+					Game.state = STATES.GAME;
+					Game.state = STATES.GAME;
+					Player.lives = 3;
+					Player.points = 0;
+					Game.level = 1;
 				}
 			}
 		}

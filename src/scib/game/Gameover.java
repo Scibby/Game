@@ -5,12 +5,15 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public class Gameover {
 
 	public Gameover(){
 		
 	}
+	
+	private Rectangle replayButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
 	
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
@@ -37,5 +40,11 @@ public class Gameover {
 		g2d.drawString("Graphics by: Andrew Sciberras with help by Adam Mifsud", 
 				(Game.WIDTH / 2) - (fm.stringWidth("Graphics by: Andrew Sciberras with help by Adam Mifsud") / 2), 
 				 (Game.HEIGHT / 2) + fm.getHeight() + fm.getHeight() + 20);
+		
+		g2d.setColor(Color.WHITE);
+		g2d.draw(replayButton);
+		g2d.drawString("Replay", replayButton.x + (replayButton.width / 2) - (fm.stringWidth("Replay") / 2), replayButton.y + (replayButton.height / 2) + 11);
+
+		
 	}
 }
