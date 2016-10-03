@@ -1,11 +1,8 @@
-package scib.game.game.objects;
+package scib.game.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.LinkedList;
 
-import scib.game.Game;
 import scib.game.framework.Animation;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
@@ -13,21 +10,19 @@ import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
 
 public class BasicEnemy extends GameObject{
-
-	Texture texture = Game.getTexture();
 	
-	Animation enemyWalk;
+	private Animation enemyWalk;
 	
 	private final float GRAVITY = 1.5f;
 	private final int MAX_SPEED = 15;
 	
 	public BasicEnemy(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
-		enemyWalk = new Animation(10, texture.enemy[0], texture.enemy[1]);
+		enemyWalk = new Animation(10, Texture.enemy[0], Texture.enemy[1]);
 		velX = -2;
 	}
 
-	public void tick(LinkedList<GameObject> object){
+	public void tick(){
 		
 		x += velX;
 		y += velY;

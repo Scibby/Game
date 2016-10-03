@@ -45,6 +45,5 @@ public class Gameover {
 		g2d.draw(replayButton);
 		g2d.drawString("Replay", replayButton.x + (replayButton.width / 2) - (fm.stringWidth("Replay") / 2), replayButton.y + (replayButton.height / 2) + 11);
 
-		
 	}
 }

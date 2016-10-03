@@ -1,10 +1,7 @@
 package scib.game.framework;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.io.IOException;
-import java.util.LinkedList;
 
 /**
  * 
@@ -16,7 +13,7 @@ public abstract class GameObject {
 	protected float x, y;
 	protected float width, height;
 	protected ObjectId id;
-	protected Handler handler;
+	protected static Handler handler;
 	protected float velX, velY;
 	protected boolean falling = false;
 	protected boolean jumping = false;
@@ -43,7 +40,7 @@ public abstract class GameObject {
 	 * 
 	 * @param object list of all the objects
 	 */
-	public abstract void tick(LinkedList<GameObject> object);
+	public abstract void tick();
 	
 	/**
 	 * Renders the graphics on the screen

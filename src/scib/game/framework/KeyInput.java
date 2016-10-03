@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import scib.game.Game;
 import scib.game.Game.STATES;
-import scib.game.game.objects.Player;
+import scib.game.objects.Player;
 
 public class KeyInput extends KeyAdapter{
 
@@ -32,7 +32,7 @@ public class KeyInput extends KeyAdapter{
 					tempObject.setVelY(-23);
 				}
 				if(key == KeyEvent.VK_SPACE){
-					Player.hit = true;
+					((Player) tempObject).shoot = true;
 				}
 			}
 		}
@@ -65,6 +65,10 @@ public class KeyInput extends KeyAdapter{
 				if((key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) && tempObject.getVelX() != 7) tempObject.setVelX(0);
 				if(key == KeyEvent.VK_W){
 					//tempObject.setVelY(0);
+				}
+				if(key == KeyEvent.VK_SPACE){
+					((Player) tempObject).shoot = false;
+					((Player) tempObject).count = 0;
 				}
 			}
 		}

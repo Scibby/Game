@@ -17,6 +17,7 @@ import scib.game.framework.Texture;
 import scib.game.levels.Level;
 import scib.game.levels.Level1;
 import scib.game.levels.Level2;
+import scib.game.objects.Player;
 
 /**
  * @author Andrew Sciberras
@@ -55,18 +56,16 @@ public class Game extends Canvas implements Runnable{
 	private static Handler handler;
 	static Camera cam;
 
-	Menu menu;
-	Pause pause;
-	HUD hud;
-	Gameover gameover;
-	Intro intro;
-	Win win;
+	private Menu menu;
+	private Pause pause;
+	private HUD hud;
+	private Gameover gameover;
+	private Win win;
 
 	public static Level[] levels = new Level[2];
 
 	public enum STATES{
 		MENU(),
-		INTRO(),
 		GAME(),
 		PAUSE(),
 		WIN(),
@@ -95,7 +94,6 @@ public class Game extends Canvas implements Runnable{
 		pause = new Pause();
 		hud = new HUD();
 		gameover = new Gameover();
-		intro = new Intro();
 		win = new Win();
 	}
 
@@ -172,7 +170,11 @@ public class Game extends Canvas implements Runnable{
 			tickCount++;
 			if(tickCount >= 60){
 				tickCount = 0;
-				Level1.timeLeft--;
+				Level.time++;
+			}
+			
+			if(Level.time >= 200){
+				Player.loseLife();
 			}
 
 			for(int i = 0; i < handler.objectList.size(); i++) {
@@ -207,11 +209,11 @@ public class Game extends Canvas implements Runnable{
 			if(cam.getX() > 0){
 				handler.render(g);
 				hud.render(g);
-				g.drawImage(texture.moon, getWidth() - texture.moon.getWidth() * 2, 0, texture.moon.getWidth() * 2, texture.moon.getHeight() * 2, null);
+				g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
 			}else{
 
 				hud.render(g);
-				g.drawImage(texture.moon, getWidth() - texture.moon.getWidth() * 2, 0, texture.moon.getWidth() * 2, texture.moon.getHeight() * 2, null);
+				g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
 
 				g2d.translate(cam.getX(), cam.getY());
 
@@ -229,8 +231,6 @@ public class Game extends Canvas implements Runnable{
 			pause.render(g);
 		}else if(state == STATES.GAMEOVER){
 			gameover.render(g);
-		}else if(state == STATES.INTRO){
-			intro.render(g);
 		}else if(state == STATES.WIN){
 			win.render(g);
 		}

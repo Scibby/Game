@@ -1,11 +1,8 @@
-package scib.game.game.objects;
+package scib.game.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.util.LinkedList;
 
 import scib.game.Camera;
 import scib.game.Game;
@@ -17,10 +14,7 @@ import scib.game.framework.Texture;
 
 public class Block extends GameObject {
 
-	private ImageLoader loader = new ImageLoader();
 	private int blockId;
-	private Texture texture = Game.getTexture();
-	private Camera cam = Game.getCamera();
 
 	/**
 	 * @param x x co-ordinate to spawn the block
@@ -40,7 +34,7 @@ public class Block extends GameObject {
 	 * 
 	 * Where the bulk of the code is contained for the {@link Block} class
 	 */
-	public void tick(LinkedList<GameObject> object){
+	public void tick(){
 
 	}
 
@@ -54,9 +48,9 @@ public class Block extends GameObject {
 		g.setColor(Color.WHITE);
 		//g.drawRect((int) x, (int) y, (int) width, (int) height);
 
-		for(int i = 0; i < texture.block.length; i++){
+		for(int i = 0; i < Texture.block.length; i++){
 			if(blockId == i){
-				g.drawImage(texture.block[i], (int) x, (int) y, (int) width, (int) height, null);
+				g.drawImage(Texture.block[i], (int) x, (int) y, (int) width, (int) height, null);
 			}
 		}
 

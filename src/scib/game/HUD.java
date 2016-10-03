@@ -6,8 +6,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import scib.game.game.objects.Player;
-import scib.game.levels.Level1;
+import scib.game.levels.Level;
+import scib.game.objects.Player;
 
 public class HUD {
 	
@@ -30,7 +30,7 @@ public class HUD {
 		g2d.setColor(Color.WHITE);
 
 		g2d.drawString("Lives: " + Player.lives, 50, 50);
-		g2d.drawString("Time Left: " + Level1.timeLeft, 200, 50);
+		g2d.drawString("Time Left: " + (200 - Level.time), 200, 50);
 		g2d.drawString("Points: " + Player.points, 450, 50);
 		g2d.drawString("Level: " + Game.level, 640, 50);
 

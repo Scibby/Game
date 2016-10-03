@@ -5,16 +5,15 @@ import java.awt.image.BufferedImage;
 import scib.game.framework.Handler;
 import scib.game.framework.ImageLoader;
 import scib.game.framework.ObjectId;
-import scib.game.game.objects.BasicEnemy;
-import scib.game.game.objects.Block;
-import scib.game.game.objects.EnemyHitBox;
-import scib.game.game.objects.Finish;
-import scib.game.game.objects.Player;
+import scib.game.objects.BasicEnemy;
+import scib.game.objects.Block;
+import scib.game.objects.EnemyHitBox;
+import scib.game.objects.Finish;
+import scib.game.objects.Player;
 
 public class Level2 extends Level{
 
 	static ImageLoader loader = new ImageLoader();
-	public static int timeLeft = 200;
 	public static BufferedImage level = loader.loadImage("/Level2.png");
 	
 	public Level2(Handler handler) {

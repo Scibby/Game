@@ -1,10 +1,8 @@
-package scib.game.game.objects;
+package scib.game.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.util.LinkedList;
 
 import scib.game.Game;
 import scib.game.Game.STATES;
@@ -13,9 +11,10 @@ import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
+import scib.game.levels.Level;
 import scib.game.levels.Level1;
 
-public class Player extends GameObject {
+public class Player extends GameObject{
 
 	/**
 	 * Gravity of the player, how fast he falls to the ground
@@ -32,17 +31,13 @@ public class Player extends GameObject {
 	private Animation walkLeft;
 	private Animation hitRight;
 	private Animation hitLeft;
-	private int count;
-	private Rectangle shovel = new Rectangle((int) ((int) x + width), (int) height / 2, (int) width / 3, (int) height / 8);
-
+	public int count;
+	
 	public static int lives = 3;
 	public static int points = 0;
 
-	public static boolean hit = false;
-
 	private enum Direction{
-		Right(),
-		Left();
+		Right(), Left();
 	}
 
 	/**
@@ -50,30 +45,37 @@ public class Player extends GameObject {
 	 */
 	private Direction direction = Direction.Right;
 
+	public boolean shoot;
+
 	/**
 	 * Creates a new player
 	 * 
-	 * @param x x co-ordinate to spawn the player
-	 * @param y y co-ordinate to spawn the player
-	 * @param width width of the player
-	 * @param height height of the player
-	 * @param id id of the player
-	 * @param handler handler in order to deal with other objects
+	 * @param x
+	 *        x co-ordinate to spawn the player
+	 * @param y
+	 *        y co-ordinate to spawn the player
+	 * @param width
+	 *        width of the player
+	 * @param height
+	 *        height of the player
+	 * @param id
+	 *        id of the player
+	 * @param handler
+	 *        handler in order to deal with other objects
 	 */
-	public Player(float x, float y, float width, float height, ObjectId id, Handler handler) {
+	public Player(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
-		walkRight = new Animation(4, texture.player[3], texture.player[2], texture.player[1]);
-		walkLeft = new Animation(4, texture.player[6], texture.player[7], texture.player[8]);
-		hitRight = new Animation(4, texture.player[13], texture.player[12], texture.player[11]);
-		hitLeft = new Animation(4, texture.player[15], texture.player[16], texture.player[17]);
+		walkRight = new Animation(4, Texture.player[3], Texture.player[2], Texture.player[1]);
+		walkLeft = new Animation(4, Texture.player[6], Texture.player[7], Texture.player[8]);
+		hitRight = new Animation(4, Texture.player[13], Texture.player[12], Texture.player[11]);
+		hitLeft = new Animation(4, Texture.player[15], Texture.player[16], Texture.player[17]);
 	}
 
 	/**
-	 * Runs 60 times a second
-	 * 
-	 * Where the bulk of the code is contained for the {@link Player} class
+	 * Runs 60 times a second Where the bulk of the code is contained for the
+	 * {@link Player} class
 	 */
-	public void tick(LinkedList<GameObject> object){
+	public void tick(){
 		x += velX;
 		y += velY;
 
@@ -96,21 +98,17 @@ public class Player extends GameObject {
 			direction = Direction.Left;
 		}
 
-		if(hit){
-			count++;
-			if(count == 18){
-				hit = false;
-				count = 0;
-			}
-		}
-
 		walkRight.runAnimation(); //Runs the walkRight animation
 		walkLeft.runAnimation(); //Runs the walkLeft animation
 
 		hitRight.runAnimation(); //Runs the hitRight animation
 		hitLeft.runAnimation(); //Runs the hitLeft animation
 
-		shovel.setLocation((int) ((int) x + width), (int) (y + (height / 2)));
+		count--;
+
+		if(shoot){
+			shoot();
+		}
 		
 		collision();
 	}
@@ -162,15 +160,9 @@ public class Player extends GameObject {
 					setX(tempObject.getX() + getWidth());
 				}
 			}else if(tempObject.getId() == ObjectId.BasicEnemy){
-				if(getBoundsRight().intersects(tempObject.getBoundsLeft()) || getBoundsLeft().intersects(tempObject.getBoundsRight())){
-					if(hit && !jumping){
-						handler.removeObject(tempObject);
-						points += 100;
-					}else if(!hit){
-						loseLife();
-					}
-				}else if(shovel.intersects(tempObject.getBounds())){
-					if(hit && !jumping){
+				if(getBoundsRight().intersects(tempObject.getBoundsLeft())
+						|| getBoundsLeft().intersects(tempObject.getBoundsRight())){
+					if(!jumping){
 						handler.removeObject(tempObject);
 						points += 100;
 					}
@@ -182,68 +174,65 @@ public class Player extends GameObject {
 		}
 	}
 
+	public void shoot(){
+		
+		if(count <= 0){
+			handler.addObject(new Projectile(x + width / 2, y + height / 2, 10, 10, ObjectId.Projectile, handler,
+					direction == Direction.Left ? 0 : 1));
+			count = 10;
+		}
+	}
+
 	/**
 	 * Where the rendering of the {@link Player} is contained
 	 */
-	public void render(Graphics g) {
+	public void render(Graphics g){
 
 		Graphics2D g2d = (Graphics2D) g;
 
 		g.setColor(Color.RED);
 		//g.fillRect((int) x, (int) y, (int) width, (int) height);
-		
-		if(!hit){
-			if(isJumping()){
-				if(direction == Direction.Right){
-					g.drawImage(texture.player[4], (int) x, (int) y, (int) width, (int) height, null);
-				}else if(direction == Direction.Left){
-					g.drawImage(texture.player[9], (int) x, (int) y, (int) width, (int) height, null);
-				}
-			}else{
-				if(velX > 0){
-					walkRight.drawAnimation(g, (int) x,(int) y, (int) width, (int) height);
-				}else if(velX < 0){
-					walkLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
-				}else{
-					if(velX == 0){
-						if(direction == Direction.Right){
-							g.drawImage(texture.player[0], (int) x, (int) y, (int) width, (int) height, null);
-						}else if(direction == Direction.Left){
-							g.drawImage(texture.player[5], (int) x, (int) y, (int) width, (int) height, null);
-						}
-					}
-				}
+
+		if(isJumping()){
+			if(direction == Direction.Right){
+				g.drawImage(Texture.player[4], (int) x, (int) y, (int) width, (int) height, null);
+			}else if(direction == Direction.Left){
+				g.drawImage(Texture.player[9], (int) x, (int) y, (int) width, (int) height, null);
 			}
-		}else if(hit){
+		}else{
 			if(velX > 0){
-				hitRight.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+				walkRight.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
 			}else if(velX < 0){
-				hitLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
+				walkLeft.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);
 			}else{
-				if(direction == Direction.Right){
-					g.drawImage(texture.player[10], (int) x, (int) y, (int) width, (int) height, null);
-				}else if(direction == Direction.Left){
-					g.drawImage(texture.player[14], (int) x, (int) y, (int) width, (int) height, null);
+				if(velX == 0){
+					if(direction == Direction.Right){
+						g.drawImage(Texture.player[0], (int) x, (int) y, (int) width, (int) height, null);
+					}else if(direction == Direction.Left){
+						g.drawImage(Texture.player[5], (int) x, (int) y, (int) width, (int) height, null);
+					}
 				}
 			}
 		}
 
-		/*g2d.setColor(Color.BLUE);
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());*/
+		/*
+		 * g2d.setColor(Color.BLUE); g2d.draw(getBoundsTop());
+		 * g2d.draw(getBoundsBottom()); g2d.draw(getBoundsLeft());
+		 * g2d.draw(getBoundsRight());
+		 */
 
-		/*g2d.setColor(Color.RED);
-		g2d.fill(shovel);*/
-		
+		/*
+		 * g2d.setColor(Color.RED); g2d.fill(shovel);
+		 */
+
 		g.setColor(Color.WHITE);
 	}
 
-	private void loseLife(){
+	public static void loseLife(){
 		if(lives <= 1){
 			Game.state = STATES.GAMEOVER;
 		}else{
+			Level.time = 0;
 			lives--;
 			handler.clearLevel();
 			Game.loadLevel(Game.level);

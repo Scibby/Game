@@ -5,22 +5,20 @@ import java.awt.image.BufferedImage;
 import scib.game.framework.Handler;
 import scib.game.framework.ImageLoader;
 import scib.game.framework.ObjectId;
-import scib.game.game.objects.BasicEnemy;
-import scib.game.game.objects.Block;
-import scib.game.game.objects.EnemyHitBox;
-import scib.game.game.objects.Finish;
-import scib.game.game.objects.Player;
+import scib.game.objects.BasicEnemy;
+import scib.game.objects.Block;
+import scib.game.objects.EnemyHitBox;
+import scib.game.objects.Finish;
+import scib.game.objects.Player;
 
 public class Level1 extends Level{
 
 	static ImageLoader loader = new ImageLoader();
-	public static int timeLeft = 200;
 	public static BufferedImage level = loader.loadImage("/Level1.png");
 
-	public Level1(Handler handler){ 
+	public Level1(Handler handler){
 		super(handler);
 
-		
 		handler.addObject(new Finish(5712, 240, 144, 576, ObjectId.Finish, handler));
 		handler.addObject(new EnemyHitBox(3312, 384, 48, 48, ObjectId.EnemyHitBox, handler));
 		handler.addObject(new BasicEnemy(3408, 384, 48, 48, ObjectId.BasicEnemy, handler));
@@ -616,9 +614,6 @@ public class Level1 extends Level{
 		handler.addObject(new Block(6000, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(6048, 960, 48, 48, 3, ObjectId.Block, handler));
 		handler.addObject(new Block(6096, 960, 48, 48, 3, ObjectId.Block, handler));
-
-		
-		
 
 	}
 }

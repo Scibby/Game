@@ -1,11 +1,7 @@
 package scib.game.framework;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.LinkedList;
-
-import scib.game.Game;
-import scib.game.game.objects.Block;
 
 public class Handler {
 
@@ -24,7 +20,7 @@ public class Handler {
 	public void tick(){
 		for(int i = 0; i < objectList.size(); i++){
 			object = objectList.get(i);
-			object.tick(objectList);
+			object.tick();
 		}
 	}
 

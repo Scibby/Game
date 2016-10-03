@@ -1,11 +1,7 @@
-package scib.game.game.objects;
+package scib.game.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.LinkedList;
 
 import scib.game.Game;
 import scib.game.framework.GameObject;
@@ -16,7 +12,6 @@ import scib.game.framework.Texture;
 public class Finish extends GameObject{
 
 	private boolean up = false;
-	private Texture texture = Game.getTexture();
 
 	/**
 	 * @param x x co-ordinate to spawn the finish
@@ -35,12 +30,12 @@ public class Finish extends GameObject{
 	 * 
 	 * This is where the bulk of the code is contained for the {@link Finish} class
 	 */
-	public void tick(LinkedList<GameObject> object){
+	public void tick(){
 
 		GameObject tempObject;
 
-		for(int i = 0; i < object.size(); i++){
-			tempObject = object.get(i);
+		for(int i = 0; i < handler.objectList.size(); i++){
+			tempObject = handler.objectList.get(i);
 			if(tempObject.getId() == ObjectId.Player){
 				if(getBounds().intersects(tempObject.getBounds())){
 					Game.level++;
@@ -57,7 +52,7 @@ public class Finish extends GameObject{
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
 
-		g.drawImage(texture.finish[1], (int) x, (int) y, (int) width, (int) height, null);
+		g.drawImage(Texture.finish[1], (int) x, (int) y, (int) width, (int) height, null);
 
 
 		/*g2d.setColor(Color.RED);

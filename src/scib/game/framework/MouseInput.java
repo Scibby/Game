@@ -1,11 +1,10 @@
 package scib.game.framework;
 
-import java.awt.Rectangle;
 import java.awt.event.MouseListener;
 
 import scib.game.Game;
 import scib.game.Game.STATES;
-import scib.game.game.objects.Player;
+import scib.game.objects.Player;
 
 public class MouseInput implements MouseListener{
 
@@ -36,19 +35,13 @@ public class MouseInput implements MouseListener{
 		if(Game.state == STATES.MENU || Game.state == STATES.PAUSE){
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > 150 && my < 200){
-					Game.state = STATES.INTRO; 
+					Game.state = STATES.GAME; 
 				}
 			}
 
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > 225 && my < 275){
 					System.exit(1);
-				}
-			}
-		}else if(Game.state == STATES.INTRO){
-			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
-				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
-					Game.state = STATES.GAME;
 				}
 			}
 		}else if(Game.state == STATES.WIN){
@@ -70,8 +63,7 @@ public class MouseInput implements MouseListener{
 			if(mx > Game.WIDTH / 2 - 75 && mx < Game.WIDTH / 2 - 75 + 150){
 				if(my > Game.HEIGHT - 100 && my < Game.HEIGHT - 50){
 					Game.state = STATES.GAME;
-					Game.state = STATES.GAME;
-					Player.lives = 3;
+					Player.lives = 4;
 					Player.points = 0;
 					Game.level = 1;
 				}

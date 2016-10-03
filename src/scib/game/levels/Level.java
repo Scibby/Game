@@ -7,11 +7,10 @@ import scib.game.framework.ImageLoader;
 
 public abstract class Level{
 
-	private ImageLoader loader = new ImageLoader();
+	public static int time = 0;
 	public int timeLeft;
 	public static BufferedImage level;
 	
 	public Level(Handler handler){
-		
 	}
 }

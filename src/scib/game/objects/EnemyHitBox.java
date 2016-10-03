@@ -1,4 +1,4 @@
-package scib.game.game.objects;
+package scib.game.objects;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
@@ -14,13 +14,11 @@ public class EnemyHitBox extends GameObject{
 	}
 
 	@Override
-	public void tick(LinkedList<GameObject> object){
-		
+	public void tick(){
 	}
 
 	@Override
 	public void render(Graphics g){
-		
 	}
 
 }
