@@ -40,30 +40,44 @@ public class Game extends Canvas implements Runnable{
 	public static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
 
 	/**
-	 * Title of window
+	 * Title of the game
 	 */
 	public static final String TITLE = "Platformer";
 
+	/**
+	 * If the program is running or not
+	 */
 	private boolean running = false;
 	private Thread thread;
 	private int fps, ticks;
 
-	private static Texture texture;
-
 	private int tickCount;
+	
+	/**
+	 * The current level of the Game
+	 */
 	public static int level;
 
 	private static Handler handler;
-	static Camera cam;
+	private static Camera cam;
 
+	/*
+	 * Instances of the various states
+	 */
 	private Menu menu;
 	private Pause pause;
 	private HUD hud;
 	private Gameover gameover;
 	private Win win;
 
+	/**
+	 * Array of the levels
+	 */
 	public static Level[] levels = new Level[2];
 
+	/**
+	 * Enum of the states
+	 */
 	public enum STATES{
 		MENU(),
 		GAME(),
@@ -72,6 +86,9 @@ public class Game extends Canvas implements Runnable{
 		GAMEOVER();
 	}
 
+	/**
+	 * The current state
+	 */
 	public static STATES state = STATES.MENU;
 
 	/**
@@ -79,8 +96,9 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private void init(){
 		handler = new Handler();
-		texture = new Texture();
 
+		Texture.getTextures();
+		
 		cam = new Camera(0, 0);
 
 		this.addKeyListener(new KeyInput(handler));
@@ -206,20 +224,20 @@ public class Game extends Canvas implements Runnable{
 
 			g2d.setColor(Color.BLACK);
 
-			if(cam.getX() > 0){
+			if(cam.x > 0){
 				handler.render(g);
 				hud.render(g);
-				g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
+				//g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
 			}else{
 
 				hud.render(g);
-				g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
+				//g.drawImage(Texture.moon, getWidth() - Texture.moon.getWidth() * 2, 0, Texture.moon.getWidth() * 2, Texture.moon.getHeight() * 2, null);
 
-				g2d.translate(cam.getX(), cam.getY());
+				g2d.translate(cam.x, cam.y);
 
 				handler.render(g);
 
-				g2d.translate(-cam.getX(), -cam.getY());
+				g2d.translate(-cam.x, -cam.y);
 			}
 		}else if(state == STATES.MENU){
 
@@ -263,13 +281,6 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * @return the texture object
-	 */
-	public static Texture getTexture(){
-		return texture;
-	}
-
-	/**
 	 * @return the camera object
 	 */
 	public static Camera getCamera(){
@@ -277,8 +288,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	/**
-	 * 
-	 * main method, creates the frame and starts the thread
+	 * The main method, creates the frame and starts the thread
 	 */
 	public static void main(String[] args) {
 		Game game = new Game();

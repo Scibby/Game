@@ -1,5 +1,6 @@
 package scib.game.framework;
 
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import scib.game.Game;
@@ -8,13 +9,13 @@ import scib.game.objects.Player;
 
 public class MouseInput implements MouseListener{
 
-	public void mouseClicked(java.awt.event.MouseEvent e){
+	public void mouseClicked(MouseEvent e){
 	}
 
-	public void mouseEntered(java.awt.event.MouseEvent e){
+	public void mouseEntered(MouseEvent e){
 	}
 
-	public void mouseExited(java.awt.event.MouseEvent e){
+	public void mouseExited(MouseEvent e){
 	}
 
 	/*
@@ -29,7 +30,10 @@ public class MouseInput implements MouseListener{
 	 *  Rectangle replayButton = new Rectangle(Game.WIDTH / 2 - 75, Game.HEIGHT - 100, 150, 50);
 	 */
 
-	public void mousePressed(java.awt.event.MouseEvent e){
+	/**
+	 * Gets run when the mouse gets pressed
+	 */
+	public void mousePressed(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
 		if(Game.state == STATES.MENU || Game.state == STATES.PAUSE){
@@ -71,7 +75,7 @@ public class MouseInput implements MouseListener{
 		}
 	}
 
-	public void mouseReleased(java.awt.event.MouseEvent e){
+	public void mouseReleased(MouseEvent e){
 	}
 
 }

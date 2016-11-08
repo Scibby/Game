@@ -10,8 +10,19 @@ import java.awt.Rectangle;
  */
 public abstract class GameObject {
 
+	/**
+	 * The x and y of the object
+	 */
 	protected float x, y;
+	
+	/**
+	 * This width and height if the object
+	 */
 	protected float width, height;
+	
+	/**
+	 * The id of the object
+	 */
 	protected ObjectId id;
 	protected static Handler handler;
 	protected float velX, velY;

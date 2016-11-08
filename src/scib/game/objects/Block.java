@@ -2,13 +2,9 @@ package scib.game.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
-import scib.game.Camera;
-import scib.game.Game;
 import scib.game.framework.GameObject;
 import scib.game.framework.Handler;
-import scib.game.framework.ImageLoader;
 import scib.game.framework.ObjectId;
 import scib.game.framework.Texture;
 
@@ -29,11 +25,6 @@ public class Block extends GameObject {
 		this.blockId = blockId;
 	}
 
-	/**
-	 * Runs 60 times a second
-	 * 
-	 * Where the bulk of the code is contained for the {@link Block} class
-	 */
 	public void tick(){
 
 	}
@@ -42,8 +33,6 @@ public class Block extends GameObject {
 	 * Where the rendering of the {@link Block} is contained
 	 */
 	public void render(Graphics g) {
-
-		Graphics2D g2d = (Graphics2D) g;
 
 		g.setColor(Color.WHITE);
 		//g.drawRect((int) x, (int) y, (int) width, (int) height);

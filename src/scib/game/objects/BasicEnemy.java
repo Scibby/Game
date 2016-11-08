@@ -1,7 +1,6 @@
 package scib.game.objects;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import scib.game.framework.Animation;
 import scib.game.framework.GameObject;
@@ -11,6 +10,9 @@ import scib.game.framework.Texture;
 
 public class BasicEnemy extends GameObject{
 	
+	/**
+	 * Animation for the enemy walking
+	 */
 	private Animation enemyWalk;
 	
 	private final float GRAVITY = 1.5f;
@@ -37,7 +39,7 @@ public class BasicEnemy extends GameObject{
 	}
 	
 	/**
-	 * Checks when the player collides with another {@link GameObject}
+	 * Checks when the enemy collides with another {@link GameObject}
 	 */
 	private void collision(){
 		for(int i = 0; i < handler.objectList.size(); i++){
@@ -84,9 +86,10 @@ public class BasicEnemy extends GameObject{
 		}
 	}
 
+	/**
+	 * Where the enemy gets rendered
+	 */
 	public void render(Graphics g){
-		
-		Graphics2D g2d = (Graphics2D) g;
 		
 		enemyWalk.drawAnimation(g, (int) x, (int) y, (int) width, (int) height);		
 

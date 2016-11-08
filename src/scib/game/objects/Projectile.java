@@ -17,6 +17,9 @@ public class Projectile extends GameObject{
 	}
 
 	@Override
+	/**
+	 * Updates the position of the projectile
+	 */
 	public void tick(){
 
 		if(dir == 0) x -= 10;
@@ -25,6 +28,9 @@ public class Projectile extends GameObject{
 		collision();
 	}
 
+	/**
+	 * Where the code of the collision is contained.
+	 */
 	private void collision(){
 		for(int i = 0; i < handler.objectList.size(); i++){
 
@@ -47,6 +53,9 @@ public class Projectile extends GameObject{
 	}
 
 	@Override
+	/**
+	 * Where the projectiles get rendered
+	 */
 	public void render(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect((int) x, (int) y, (int) width, (int) height);

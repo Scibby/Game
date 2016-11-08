@@ -5,20 +5,31 @@ import java.awt.image.BufferedImage;
 
 public class Animation {
 
+	/**
+	 * The amount of ticks in between every frame change
+	 */
 	private int speed;
+	
+	/**
+	 * The amount of frames
+	 */
 	private int frames;
 
 	private int index = 0;
 	private int count = 0;
 
+	/**
+	 * The current image which is being rendered
+	 */
 	private BufferedImage currentImage;
+	
+	/**
+	 * The array containing the images
+	 */
 	private BufferedImage[] images;
 
 	/**
 	 * Initiates the animation
-	 * 
-	 * @param speed speed of the animation
-	 * @param args images to use in the animation
 	 */
 	public Animation(int speed, BufferedImage... args){
 		this.speed = speed;
@@ -60,12 +71,6 @@ public class Animation {
 
 	/**
 	 * Draws the animation onto the screen
-	 * 
-	 * @param g graphics object to draw the animation
-	 * @param x x co-ordiante to draw the animation
-	 * @param y y co-ordinate to draw the animation
-	 * @param width width of the animation
-	 * @param height height of the animation
 	 */
 	public void drawAnimation(Graphics g, int x, int y, int width, int height){
 		g.drawImage(currentImage, x, y, width, height, null);

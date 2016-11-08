@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import scib.game.framework.ImageLoader;
-import scib.game.framework.ObjectId;
-import scib.game.game.objects.Block;
-import scib.game.game.objects.Finish;
-import scib.game.game.objects.Player;
 
 public class ParseLevelImage {
 

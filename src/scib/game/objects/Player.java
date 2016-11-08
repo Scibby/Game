@@ -26,14 +26,21 @@ public class Player extends GameObject{
 	 */
 	private final float MAX_SPEED = 15;
 
-	private Texture texture = Game.getTexture();
+	/*
+	 * The instances of the various animations for the player
+	 */
 	private Animation walkRight;
 	private Animation walkLeft;
-	private Animation hitRight;
-	private Animation hitLeft;
 	public int count;
 	
+	/**
+	 * The amount of lives of the player
+	 */
 	public static int lives = 3;
+	
+	/**
+	 * The current amount of points the player has obtained
+	 */
 	public static int points = 0;
 
 	private enum Direction{
@@ -45,6 +52,9 @@ public class Player extends GameObject{
 	 */
 	private Direction direction = Direction.Right;
 
+	/**
+	 * Whether the player is shooting or not
+	 */
 	public boolean shoot;
 
 	/**
@@ -67,8 +77,6 @@ public class Player extends GameObject{
 		super(x, y, width, height, id, handler);
 		walkRight = new Animation(4, Texture.player[3], Texture.player[2], Texture.player[1]);
 		walkLeft = new Animation(4, Texture.player[6], Texture.player[7], Texture.player[8]);
-		hitRight = new Animation(4, Texture.player[13], Texture.player[12], Texture.player[11]);
-		hitLeft = new Animation(4, Texture.player[15], Texture.player[16], Texture.player[17]);
 	}
 
 	/**
@@ -100,9 +108,6 @@ public class Player extends GameObject{
 
 		walkRight.runAnimation(); //Runs the walkRight animation
 		walkLeft.runAnimation(); //Runs the walkLeft animation
-
-		hitRight.runAnimation(); //Runs the hitRight animation
-		hitLeft.runAnimation(); //Runs the hitLeft animation
 
 		count--;
 
@@ -174,6 +179,9 @@ public class Player extends GameObject{
 		}
 	}
 
+	/**
+	 * The method in order for the player to shoot a projectile
+	 */
 	public void shoot(){
 		
 		if(count <= 0){
@@ -187,8 +195,6 @@ public class Player extends GameObject{
 	 * Where the rendering of the {@link Player} is contained
 	 */
 	public void render(Graphics g){
-
-		Graphics2D g2d = (Graphics2D) g;
 
 		g.setColor(Color.RED);
 		//g.fillRect((int) x, (int) y, (int) width, (int) height);
@@ -228,6 +234,9 @@ public class Player extends GameObject{
 		g.setColor(Color.WHITE);
 	}
 
+	/**
+	 * Removes a life from the player and checks if lives are 0
+	 */
 	public static void loseLife(){
 		if(lives <= 1){
 			Game.state = STATES.GAMEOVER;

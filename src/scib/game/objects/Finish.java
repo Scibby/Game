@@ -11,15 +11,8 @@ import scib.game.framework.Texture;
 
 public class Finish extends GameObject{
 
-	private boolean up = false;
-
 	/**
-	 * @param x x co-ordinate to spawn the finish
-	 * @param y y co-ordinate to spawn the finish
-	 * @param width width of the finish
-	 * @param height height of the finish
-	 * @param id id of the finish
-	 * @param handler handler in order to deal with other objects
+	 * The flag at the end of the levels
 	 */
 	public Finish(float x, float y, float width, float height, ObjectId id, Handler handler){
 		super(x, y, width, height, id, handler);
@@ -50,7 +43,6 @@ public class Finish extends GameObject{
 	 * Where the rendering of the {@link Finish} is contained
 	 */
 	public void render(Graphics g){
-		Graphics2D g2d = (Graphics2D) g;
 
 		g.drawImage(Texture.finish[1], (int) x, (int) y, (int) width, (int) height, null);
 
